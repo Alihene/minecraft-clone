@@ -1,0 +1,236 @@
+[
+{
+  "directory": "/home/alex/Desktop/Programming/C++/minecraft-clone/build",
+  "command": "/usr/bin/g++ -I/home/alex/Desktop/Programming/C++/minecraft-clone/src -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glad/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glm/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/stb_image/include -g -o CMakeFiles/minecraft-clone.dir/src/main.cpp.o -c /home/alex/Desktop/Programming/C++/minecraft-clone/src/main.cpp",
+  "file": "/home/alex/Desktop/Programming/C++/minecraft-clone/src/main.cpp",
+  "output": "CMakeFiles/minecraft-clone.dir/src/main.cpp.o"
+},
+{
+  "directory": "/home/alex/Desktop/Programming/C++/minecraft-clone/build",
+  "command": "/usr/bin/g++ -I/home/alex/Desktop/Programming/C++/minecraft-clone/src -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glad/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glm/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/stb_image/include -g -o CMakeFiles/minecraft-clone.dir/src/render/window.cpp.o -c /home/alex/Desktop/Programming/C++/minecraft-clone/src/render/window.cpp",
+  "file": "/home/alex/Desktop/Programming/C++/minecraft-clone/src/render/window.cpp",
+  "output": "CMakeFiles/minecraft-clone.dir/src/render/window.cpp.o"
+},
+{
+  "directory": "/home/alex/Desktop/Programming/C++/minecraft-clone/build",
+  "command": "/usr/bin/g++ -I/home/alex/Desktop/Programming/C++/minecraft-clone/src -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glad/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glm/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/stb_image/include -g -o CMakeFiles/minecraft-clone.dir/src/render/renderer.cpp.o -c /home/alex/Desktop/Programming/C++/minecraft-clone/src/render/renderer.cpp",
+  "file": "/home/alex/Desktop/Programming/C++/minecraft-clone/src/render/renderer.cpp",
+  "output": "CMakeFiles/minecraft-clone.dir/src/render/renderer.cpp.o"
+},
+{
+  "directory": "/home/alex/Desktop/Programming/C++/minecraft-clone/build",
+  "command": "/usr/bin/g++ -I/home/alex/Desktop/Programming/C++/minecraft-clone/src -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glad/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glm/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/stb_image/include -g -o CMakeFiles/minecraft-clone.dir/src/render/shader_program.cpp.o -c /home/alex/Desktop/Programming/C++/minecraft-clone/src/render/shader_program.cpp",
+  "file": "/home/alex/Desktop/Programming/C++/minecraft-clone/src/render/shader_program.cpp",
+  "output": "CMakeFiles/minecraft-clone.dir/src/render/shader_program.cpp.o"
+},
+{
+  "directory": "/home/alex/Desktop/Programming/C++/minecraft-clone/build",
+  "command": "/usr/bin/g++ -I/home/alex/Desktop/Programming/C++/minecraft-clone/src -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glad/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glm/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/stb_image/include -g -o CMakeFiles/minecraft-clone.dir/src/render/camera.cpp.o -c /home/alex/Desktop/Programming/C++/minecraft-clone/src/render/camera.cpp",
+  "file": "/home/alex/Desktop/Programming/C++/minecraft-clone/src/render/camera.cpp",
+  "output": "CMakeFiles/minecraft-clone.dir/src/render/camera.cpp.o"
+},
+{
+  "directory": "/home/alex/Desktop/Programming/C++/minecraft-clone/build",
+  "command": "/usr/bin/g++ -I/home/alex/Desktop/Programming/C++/minecraft-clone/src -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glad/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glm/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/stb_image/include -g -o CMakeFiles/minecraft-clone.dir/src/render/texture.cpp.o -c /home/alex/Desktop/Programming/C++/minecraft-clone/src/render/texture.cpp",
+  "file": "/home/alex/Desktop/Programming/C++/minecraft-clone/src/render/texture.cpp",
+  "output": "CMakeFiles/minecraft-clone.dir/src/render/texture.cpp.o"
+},
+{
+  "directory": "/home/alex/Desktop/Programming/C++/minecraft-clone/build",
+  "command": "/usr/bin/g++ -I/home/alex/Desktop/Programming/C++/minecraft-clone/src -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glad/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glm/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/stb_image/include -g -o CMakeFiles/minecraft-clone.dir/src/block/block_manager.cpp.o -c /home/alex/Desktop/Programming/C++/minecraft-clone/src/block/block_manager.cpp",
+  "file": "/home/alex/Desktop/Programming/C++/minecraft-clone/src/block/block_manager.cpp",
+  "output": "CMakeFiles/minecraft-clone.dir/src/block/block_manager.cpp.o"
+},
+{
+  "directory": "/home/alex/Desktop/Programming/C++/minecraft-clone/build",
+  "command": "/usr/bin/g++ -I/home/alex/Desktop/Programming/C++/minecraft-clone/src -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glad/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glm/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/stb_image/include -g -o CMakeFiles/minecraft-clone.dir/src/world/chunk.cpp.o -c /home/alex/Desktop/Programming/C++/minecraft-clone/src/world/chunk.cpp",
+  "file": "/home/alex/Desktop/Programming/C++/minecraft-clone/src/world/chunk.cpp",
+  "output": "CMakeFiles/minecraft-clone.dir/src/world/chunk.cpp.o"
+},
+{
+  "directory": "/home/alex/Desktop/Programming/C++/minecraft-clone/build",
+  "command": "/usr/bin/g++ -I/home/alex/Desktop/Programming/C++/minecraft-clone/src -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glad/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glm/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/stb_image/include -g -o CMakeFiles/minecraft-clone.dir/src/world/chunk_mesh.cpp.o -c /home/alex/Desktop/Programming/C++/minecraft-clone/src/world/chunk_mesh.cpp",
+  "file": "/home/alex/Desktop/Programming/C++/minecraft-clone/src/world/chunk_mesh.cpp",
+  "output": "CMakeFiles/minecraft-clone.dir/src/world/chunk_mesh.cpp.o"
+},
+{
+  "directory": "/home/alex/Desktop/Programming/C++/minecraft-clone/build",
+  "command": "/usr/bin/g++ -I/home/alex/Desktop/Programming/C++/minecraft-clone/src -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glad/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glm/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/stb_image/include -g -o CMakeFiles/minecraft-clone.dir/src/world/world.cpp.o -c /home/alex/Desktop/Programming/C++/minecraft-clone/src/world/world.cpp",
+  "file": "/home/alex/Desktop/Programming/C++/minecraft-clone/src/world/world.cpp",
+  "output": "CMakeFiles/minecraft-clone.dir/src/world/world.cpp.o"
+},
+{
+  "directory": "/home/alex/Desktop/Programming/C++/minecraft-clone/build",
+  "command": "/usr/bin/g++ -I/home/alex/Desktop/Programming/C++/minecraft-clone/src -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glad/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glm/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/stb_image/include -g -o CMakeFiles/minecraft-clone.dir/src/player.cpp.o -c /home/alex/Desktop/Programming/C++/minecraft-clone/src/player.cpp",
+  "file": "/home/alex/Desktop/Programming/C++/minecraft-clone/src/player.cpp",
+  "output": "CMakeFiles/minecraft-clone.dir/src/player.cpp.o"
+},
+{
+  "directory": "/home/alex/Desktop/Programming/C++/minecraft-clone/build",
+  "command": "/usr/bin/gcc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src -I/home/alex/Desktop/Programming/C++/minecraft-clone/build/thirdparty/glfw/src -g -std=c99 -fPIC -Wall -o thirdparty/glfw/src/CMakeFiles/glfw.dir/context.c.o -c /home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/context.c",
+  "file": "/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/context.c",
+  "output": "thirdparty/glfw/src/CMakeFiles/glfw.dir/context.c.o"
+},
+{
+  "directory": "/home/alex/Desktop/Programming/C++/minecraft-clone/build",
+  "command": "/usr/bin/gcc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src -I/home/alex/Desktop/Programming/C++/minecraft-clone/build/thirdparty/glfw/src -g -std=c99 -fPIC -Wall -o thirdparty/glfw/src/CMakeFiles/glfw.dir/init.c.o -c /home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/init.c",
+  "file": "/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/init.c",
+  "output": "thirdparty/glfw/src/CMakeFiles/glfw.dir/init.c.o"
+},
+{
+  "directory": "/home/alex/Desktop/Programming/C++/minecraft-clone/build",
+  "command": "/usr/bin/gcc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src -I/home/alex/Desktop/Programming/C++/minecraft-clone/build/thirdparty/glfw/src -g -std=c99 -fPIC -Wall -o thirdparty/glfw/src/CMakeFiles/glfw.dir/input.c.o -c /home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/input.c",
+  "file": "/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/input.c",
+  "output": "thirdparty/glfw/src/CMakeFiles/glfw.dir/input.c.o"
+},
+{
+  "directory": "/home/alex/Desktop/Programming/C++/minecraft-clone/build",
+  "command": "/usr/bin/gcc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src -I/home/alex/Desktop/Programming/C++/minecraft-clone/build/thirdparty/glfw/src -g -std=c99 -fPIC -Wall -o thirdparty/glfw/src/CMakeFiles/glfw.dir/monitor.c.o -c /home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/monitor.c",
+  "file": "/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/monitor.c",
+  "output": "thirdparty/glfw/src/CMakeFiles/glfw.dir/monitor.c.o"
+},
+{
+  "directory": "/home/alex/Desktop/Programming/C++/minecraft-clone/build",
+  "command": "/usr/bin/gcc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src -I/home/alex/Desktop/Programming/C++/minecraft-clone/build/thirdparty/glfw/src -g -std=c99 -fPIC -Wall -o thirdparty/glfw/src/CMakeFiles/glfw.dir/platform.c.o -c /home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/platform.c",
+  "file": "/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/platform.c",
+  "output": "thirdparty/glfw/src/CMakeFiles/glfw.dir/platform.c.o"
+},
+{
+  "directory": "/home/alex/Desktop/Programming/C++/minecraft-clone/build",
+  "command": "/usr/bin/gcc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src -I/home/alex/Desktop/Programming/C++/minecraft-clone/build/thirdparty/glfw/src -g -std=c99 -fPIC -Wall -o thirdparty/glfw/src/CMakeFiles/glfw.dir/vulkan.c.o -c /home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/vulkan.c",
+  "file": "/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/vulkan.c",
+  "output": "thirdparty/glfw/src/CMakeFiles/glfw.dir/vulkan.c.o"
+},
+{
+  "directory": "/home/alex/Desktop/Programming/C++/minecraft-clone/build",
+  "command": "/usr/bin/gcc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src -I/home/alex/Desktop/Programming/C++/minecraft-clone/build/thirdparty/glfw/src -g -std=c99 -fPIC -Wall -o thirdparty/glfw/src/CMakeFiles/glfw.dir/window.c.o -c /home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/window.c",
+  "file": "/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/window.c",
+  "output": "thirdparty/glfw/src/CMakeFiles/glfw.dir/window.c.o"
+},
+{
+  "directory": "/home/alex/Desktop/Programming/C++/minecraft-clone/build",
+  "command": "/usr/bin/gcc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src -I/home/alex/Desktop/Programming/C++/minecraft-clone/build/thirdparty/glfw/src -g -std=c99 -fPIC -Wall -o thirdparty/glfw/src/CMakeFiles/glfw.dir/egl_context.c.o -c /home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/egl_context.c",
+  "file": "/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/egl_context.c",
+  "output": "thirdparty/glfw/src/CMakeFiles/glfw.dir/egl_context.c.o"
+},
+{
+  "directory": "/home/alex/Desktop/Programming/C++/minecraft-clone/build",
+  "command": "/usr/bin/gcc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src -I/home/alex/Desktop/Programming/C++/minecraft-clone/build/thirdparty/glfw/src -g -std=c99 -fPIC -Wall -o thirdparty/glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.o -c /home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/osmesa_context.c",
+  "file": "/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/osmesa_context.c",
+  "output": "thirdparty/glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.o"
+},
+{
+  "directory": "/home/alex/Desktop/Programming/C++/minecraft-clone/build",
+  "command": "/usr/bin/gcc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src -I/home/alex/Desktop/Programming/C++/minecraft-clone/build/thirdparty/glfw/src -g -std=c99 -fPIC -Wall -o thirdparty/glfw/src/CMakeFiles/glfw.dir/null_init.c.o -c /home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/null_init.c",
+  "file": "/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/null_init.c",
+  "output": "thirdparty/glfw/src/CMakeFiles/glfw.dir/null_init.c.o"
+},
+{
+  "directory": "/home/alex/Desktop/Programming/C++/minecraft-clone/build",
+  "command": "/usr/bin/gcc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src -I/home/alex/Desktop/Programming/C++/minecraft-clone/build/thirdparty/glfw/src -g -std=c99 -fPIC -Wall -o thirdparty/glfw/src/CMakeFiles/glfw.dir/null_monitor.c.o -c /home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/null_monitor.c",
+  "file": "/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/null_monitor.c",
+  "output": "thirdparty/glfw/src/CMakeFiles/glfw.dir/null_monitor.c.o"
+},
+{
+  "directory": "/home/alex/Desktop/Programming/C++/minecraft-clone/build",
+  "command": "/usr/bin/gcc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src -I/home/alex/Desktop/Programming/C++/minecraft-clone/build/thirdparty/glfw/src -g -std=c99 -fPIC -Wall -o thirdparty/glfw/src/CMakeFiles/glfw.dir/null_window.c.o -c /home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/null_window.c",
+  "file": "/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/null_window.c",
+  "output": "thirdparty/glfw/src/CMakeFiles/glfw.dir/null_window.c.o"
+},
+{
+  "directory": "/home/alex/Desktop/Programming/C++/minecraft-clone/build",
+  "command": "/usr/bin/gcc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src -I/home/alex/Desktop/Programming/C++/minecraft-clone/build/thirdparty/glfw/src -g -std=c99 -fPIC -Wall -o thirdparty/glfw/src/CMakeFiles/glfw.dir/null_joystick.c.o -c /home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/null_joystick.c",
+  "file": "/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/null_joystick.c",
+  "output": "thirdparty/glfw/src/CMakeFiles/glfw.dir/null_joystick.c.o"
+},
+{
+  "directory": "/home/alex/Desktop/Programming/C++/minecraft-clone/build",
+  "command": "/usr/bin/gcc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src -I/home/alex/Desktop/Programming/C++/minecraft-clone/build/thirdparty/glfw/src -g -std=c99 -fPIC -Wall -o thirdparty/glfw/src/CMakeFiles/glfw.dir/posix_module.c.o -c /home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/posix_module.c",
+  "file": "/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/posix_module.c",
+  "output": "thirdparty/glfw/src/CMakeFiles/glfw.dir/posix_module.c.o"
+},
+{
+  "directory": "/home/alex/Desktop/Programming/C++/minecraft-clone/build",
+  "command": "/usr/bin/gcc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src -I/home/alex/Desktop/Programming/C++/minecraft-clone/build/thirdparty/glfw/src -g -std=c99 -fPIC -Wall -o thirdparty/glfw/src/CMakeFiles/glfw.dir/posix_time.c.o -c /home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/posix_time.c",
+  "file": "/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/posix_time.c",
+  "output": "thirdparty/glfw/src/CMakeFiles/glfw.dir/posix_time.c.o"
+},
+{
+  "directory": "/home/alex/Desktop/Programming/C++/minecraft-clone/build",
+  "command": "/usr/bin/gcc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src -I/home/alex/Desktop/Programming/C++/minecraft-clone/build/thirdparty/glfw/src -g -std=c99 -fPIC -Wall -o thirdparty/glfw/src/CMakeFiles/glfw.dir/posix_thread.c.o -c /home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/posix_thread.c",
+  "file": "/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/posix_thread.c",
+  "output": "thirdparty/glfw/src/CMakeFiles/glfw.dir/posix_thread.c.o"
+},
+{
+  "directory": "/home/alex/Desktop/Programming/C++/minecraft-clone/build",
+  "command": "/usr/bin/gcc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src -I/home/alex/Desktop/Programming/C++/minecraft-clone/build/thirdparty/glfw/src -g -std=c99 -fPIC -Wall -o thirdparty/glfw/src/CMakeFiles/glfw.dir/x11_init.c.o -c /home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/x11_init.c",
+  "file": "/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/x11_init.c",
+  "output": "thirdparty/glfw/src/CMakeFiles/glfw.dir/x11_init.c.o"
+},
+{
+  "directory": "/home/alex/Desktop/Programming/C++/minecraft-clone/build",
+  "command": "/usr/bin/gcc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src -I/home/alex/Desktop/Programming/C++/minecraft-clone/build/thirdparty/glfw/src -g -std=c99 -fPIC -Wall -o thirdparty/glfw/src/CMakeFiles/glfw.dir/x11_monitor.c.o -c /home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/x11_monitor.c",
+  "file": "/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/x11_monitor.c",
+  "output": "thirdparty/glfw/src/CMakeFiles/glfw.dir/x11_monitor.c.o"
+},
+{
+  "directory": "/home/alex/Desktop/Programming/C++/minecraft-clone/build",
+  "command": "/usr/bin/gcc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src -I/home/alex/Desktop/Programming/C++/minecraft-clone/build/thirdparty/glfw/src -g -std=c99 -fPIC -Wall -o thirdparty/glfw/src/CMakeFiles/glfw.dir/x11_window.c.o -c /home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/x11_window.c",
+  "file": "/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/x11_window.c",
+  "output": "thirdparty/glfw/src/CMakeFiles/glfw.dir/x11_window.c.o"
+},
+{
+  "directory": "/home/alex/Desktop/Programming/C++/minecraft-clone/build",
+  "command": "/usr/bin/gcc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src -I/home/alex/Desktop/Programming/C++/minecraft-clone/build/thirdparty/glfw/src -g -std=c99 -fPIC -Wall -o thirdparty/glfw/src/CMakeFiles/glfw.dir/xkb_unicode.c.o -c /home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/xkb_unicode.c",
+  "file": "/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/xkb_unicode.c",
+  "output": "thirdparty/glfw/src/CMakeFiles/glfw.dir/xkb_unicode.c.o"
+},
+{
+  "directory": "/home/alex/Desktop/Programming/C++/minecraft-clone/build",
+  "command": "/usr/bin/gcc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src -I/home/alex/Desktop/Programming/C++/minecraft-clone/build/thirdparty/glfw/src -g -std=c99 -fPIC -Wall -o thirdparty/glfw/src/CMakeFiles/glfw.dir/glx_context.c.o -c /home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/glx_context.c",
+  "file": "/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/glx_context.c",
+  "output": "thirdparty/glfw/src/CMakeFiles/glfw.dir/glx_context.c.o"
+},
+{
+  "directory": "/home/alex/Desktop/Programming/C++/minecraft-clone/build",
+  "command": "/usr/bin/gcc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src -I/home/alex/Desktop/Programming/C++/minecraft-clone/build/thirdparty/glfw/src -g -std=c99 -fPIC -Wall -o thirdparty/glfw/src/CMakeFiles/glfw.dir/wl_init.c.o -c /home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/wl_init.c",
+  "file": "/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/wl_init.c",
+  "output": "thirdparty/glfw/src/CMakeFiles/glfw.dir/wl_init.c.o"
+},
+{
+  "directory": "/home/alex/Desktop/Programming/C++/minecraft-clone/build",
+  "command": "/usr/bin/gcc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src -I/home/alex/Desktop/Programming/C++/minecraft-clone/build/thirdparty/glfw/src -g -std=c99 -fPIC -Wall -o thirdparty/glfw/src/CMakeFiles/glfw.dir/wl_monitor.c.o -c /home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/wl_monitor.c",
+  "file": "/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/wl_monitor.c",
+  "output": "thirdparty/glfw/src/CMakeFiles/glfw.dir/wl_monitor.c.o"
+},
+{
+  "directory": "/home/alex/Desktop/Programming/C++/minecraft-clone/build",
+  "command": "/usr/bin/gcc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src -I/home/alex/Desktop/Programming/C++/minecraft-clone/build/thirdparty/glfw/src -g -std=c99 -fPIC -Wall -o thirdparty/glfw/src/CMakeFiles/glfw.dir/wl_window.c.o -c /home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/wl_window.c",
+  "file": "/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/wl_window.c",
+  "output": "thirdparty/glfw/src/CMakeFiles/glfw.dir/wl_window.c.o"
+},
+{
+  "directory": "/home/alex/Desktop/Programming/C++/minecraft-clone/build",
+  "command": "/usr/bin/gcc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src -I/home/alex/Desktop/Programming/C++/minecraft-clone/build/thirdparty/glfw/src -g -std=c99 -fPIC -Wall -o thirdparty/glfw/src/CMakeFiles/glfw.dir/linux_joystick.c.o -c /home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/linux_joystick.c",
+  "file": "/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/linux_joystick.c",
+  "output": "thirdparty/glfw/src/CMakeFiles/glfw.dir/linux_joystick.c.o"
+},
+{
+  "directory": "/home/alex/Desktop/Programming/C++/minecraft-clone/build",
+  "command": "/usr/bin/gcc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/include -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src -I/home/alex/Desktop/Programming/C++/minecraft-clone/build/thirdparty/glfw/src -g -std=c99 -fPIC -Wall -o thirdparty/glfw/src/CMakeFiles/glfw.dir/posix_poll.c.o -c /home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/posix_poll.c",
+  "file": "/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glfw/src/posix_poll.c",
+  "output": "thirdparty/glfw/src/CMakeFiles/glfw.dir/posix_poll.c.o"
+},
+{
+  "directory": "/home/alex/Desktop/Programming/C++/minecraft-clone/build",
+  "command": "/usr/bin/gcc -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glad/include -g -o thirdparty/glad/CMakeFiles/glad.dir/src/glad.c.o -c /home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glad/src/glad.c",
+  "file": "/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/glad/src/glad.c",
+  "output": "thirdparty/glad/CMakeFiles/glad.dir/src/glad.c.o"
+},
+{
+  "directory": "/home/alex/Desktop/Programming/C++/minecraft-clone/build",
+  "command": "/usr/bin/gcc -I/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/stb_image/include -g -o thirdparty/stb_image/CMakeFiles/stb_image.dir/src/stb_image.c.o -c /home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/stb_image/src/stb_image.c",
+  "file": "/home/alex/Desktop/Programming/C++/minecraft-clone/thirdparty/stb_image/src/stb_image.c",
+  "output": "thirdparty/stb_image/CMakeFiles/stb_image.dir/src/stb_image.c.o"
+}
+]
