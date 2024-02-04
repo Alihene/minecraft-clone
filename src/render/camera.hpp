@@ -14,8 +14,6 @@ struct Camera {
     glm::mat4 view;
     glm::mat4 proj;
 
-    glm::vec3 viewDirection;
-
     f32 pitch = 0.0f;
 
     f32 yaw = -90.0f;

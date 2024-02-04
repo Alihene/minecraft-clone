@@ -40,7 +40,7 @@ void Player::update() {
 
 void Player::tryBreakBlock() {
     glm::ivec3 blockPos;
-    Block *block = rayCast(state.renderer->camera.viewDirection, 5, &blockPos);
+    Block *block = rayCast(state.renderer->camera.front, 5, &blockPos);
 
     if(!block) {
         return;
@@ -51,7 +51,7 @@ void Player::tryBreakBlock() {
 
 Block *Player::rayCast(glm::vec3 dir, f32 distance, glm::ivec3 *outPos) {
     f32 deltaMagnitude = 0.01f;
-    glm::vec3 delta = glm::normalize(dir) * deltaMagnitude;
+    glm::vec3 delta = dir * deltaMagnitude;
 
     glm::vec3 currentPos = pos;
 

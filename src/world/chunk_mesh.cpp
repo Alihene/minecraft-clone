@@ -6,18 +6,11 @@
 #include <cstring>
 
 ChunkMesh::ChunkMesh() {
-    // data = (f32*) std::malloc(6 * 5 * 6 * Chunk::WIDTH * Chunk::HEIGHT * Chunk::DEPTH * sizeof(f32));
-    // if(!data) {
-    //     std::cerr << "Failed to allocate chunkmesh data" << std::endl;
-    //     std::exit(-1);
-    // }
-
     glGenVertexArrays(1, &vao);
     glBindVertexArray(vao);
 
     glGenBuffers(1, &vbo);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    //glBufferData(GL_ARRAY_BUFFER, 6 * 5 * 6 * Chunk::WIDTH * Chunk::HEIGHT * Chunk::DEPTH * sizeof(f32), nullptr, GL_DYNAMIC_DRAW);
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(f32), (void*) 0);
     glEnableVertexAttribArray(0);
@@ -126,8 +119,8 @@ void ChunkMesh::mesh() {
 
     Chunk *left = state.world->getChunk(glm::ivec2(chunk->pos.x - 1, chunk->pos.y));
     Chunk *right = state.world->getChunk(glm::ivec2(chunk->pos.x + 1, chunk->pos.y));
-    Chunk *front = state.world->getChunk(glm::ivec2(chunk->pos.x, chunk->pos.y - 1));
-    Chunk *back = state.world->getChunk(glm::ivec2(chunk->pos.x, chunk->pos.y + 1));
+    Chunk *front = state.world->getChunk(glm::ivec2(chunk->pos.x, chunk->pos.y + 1));
+    Chunk *back = state.world->getChunk(glm::ivec2(chunk->pos.x, chunk->pos.y - 1));
 
     for(u32 x = 0; x < Chunk::WIDTH; x++) {
         for(u32 y = 0; y < Chunk::HEIGHT; y++) {
@@ -166,16 +159,16 @@ void ChunkMesh::mesh() {
                     if(z > 0 && chunk->get(x, y, z - 1)->isAir()) {
                         negativeZFace(x, y, z, &block);
                     } else if(z == 0) {
-                        if(front != nullptr && front->get(x, y, 0)->isAir()) {
-                            positiveZFace(x, y, z, &block);
+                        if(back != nullptr && back->get(x, y, Chunk::DEPTH - 1)->isAir()) {
+                            negativeZFace(x, y, z, &block);
                         }
                     }
 
                     if(z < Chunk::DEPTH - 1 && chunk->get(x, y, z + 1)->isAir()) {
                         positiveZFace(x, y, z, &block);
                     } else if(z == Chunk::DEPTH - 1) {
-                        if(back != nullptr && back->get(x, y, Chunk::DEPTH - 1)->isAir()) {
-                            negativeZFace(x, y, z, &block);
+                        if(front != nullptr && front->get(x, y, 0)->isAir()) {
+                            positiveZFace(x, y, z, &block);
                         }
                     }
                 }

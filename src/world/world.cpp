@@ -40,9 +40,9 @@ void World::setBlock(i32 x, i32 y, i32 z, Block *block) {
         }
     }
 
-    glm::uvec3 posInChunk = glm::uvec3(x % 16, y, z % 16);
+    glm::ivec3 posInChunk = glm::ivec3(x % Chunk::WIDTH, y, z % Chunk::DEPTH);
 
-    if(chunk == nullptr) {
+    if(!chunk) {
         // Chunk isn't loaded, block needs to be set when this chunk loads
         pendingBlockChanges.push_back((BlockSetData) {
             .chunkPos = glm::ivec2(chunkPosX, chunkPosZ),
@@ -53,6 +53,30 @@ void World::setBlock(i32 x, i32 y, i32 z, Block *block) {
     }
 
     chunk->set(posInChunk.x, posInChunk.y, posInChunk.z, block);
+
+    if(posInChunk.x == 0) {
+        Chunk *left = state.world->getChunk(glm::ivec2(chunk->pos.x - 1, chunk->pos.y));
+        if(left && !left->get(Chunk::WIDTH - 1, posInChunk.y, posInChunk.z)->isAir()) {
+            left->mesh->mesh();
+        }
+    } else if(posInChunk.x == Chunk::WIDTH - 1) {
+        Chunk *right = state.world->getChunk(glm::ivec2(chunk->pos.x + 1, chunk->pos.y));
+        if(right && !right->get(0, posInChunk.y, posInChunk.z)->isAir()) {
+            right->mesh->mesh();
+        }
+    }
+
+    if(posInChunk.z == 0) {
+        Chunk *back = state.world->getChunk(glm::ivec2(chunk->pos.x, chunk->pos.y - 1));
+        if(back && !back->get(posInChunk.x, posInChunk.y, Chunk::DEPTH - 1)->isAir()) {
+            back->mesh->mesh();
+        }
+    } else if(posInChunk.z == Chunk::DEPTH - 1) {
+        Chunk *front = state.world->getChunk(glm::ivec2(chunk->pos.x, chunk->pos.y + 1));
+        if(front && !front->get(posInChunk.x, posInChunk.y, 0)->isAir()) {
+            front->mesh->mesh();
+        }
+    }
 }
 
 void World::setBlock(glm::ivec3 pos, Block *block) {
@@ -71,12 +95,12 @@ Block *World::getBlock(i32 x, i32 y, i32 z) {
         }
     }
 
-    if(chunk == nullptr) {
+    if(!chunk) {
         // Chunk is not loaded
         return nullptr;
     }
 
-    return chunk->get(x, y, z);
+    return chunk->get(x % Chunk::WIDTH, y, z % Chunk::DEPTH);
 }
 
 Block *World::getBlock(glm::ivec3 pos) {

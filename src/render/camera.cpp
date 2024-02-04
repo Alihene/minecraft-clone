@@ -43,9 +43,6 @@ void Camera::update() {
     direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
     this->front = glm::normalize(direction);
 
-    viewDirection = glm::vec3(0, 0, -1);
-    viewDirection = glm::mat3(glm::rotate(yaw, up)) * viewDirection;
-
     this->view = glm::lookAt(this->pos, this->pos + this->front, this->up);
     this->proj = glm::perspective(glm::radians(80.0f), state.window->aspectRatio(), 0.1f, 1000.0f);
 }
