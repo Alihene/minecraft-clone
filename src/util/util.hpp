@@ -18,3 +18,7 @@ typedef float f32;
 typedef double f64;
 
 typedef size_t usize;
+
+inline i32 sign(f32 x) {
+    return (x > 0.0f) - (x < 0.0f);
+}

@@ -24,6 +24,7 @@ struct World {
     Block *getBlock(glm::ivec3 pos);
 
     void updateChunks();
+    void sortChunks();
 
     void loadChunks();
 

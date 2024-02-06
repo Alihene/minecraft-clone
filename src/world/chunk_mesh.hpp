@@ -8,6 +8,11 @@
 struct Chunk;
 
 struct ChunkMesh {
+    struct Face {
+        glm::vec3 pos;
+        u32 indexBase;
+    };
+
     static constexpr usize MESH_SIZE = 6 * 6 * 5 * 16 * 128 * 16 * sizeof(f32);
 
     static constexpr usize ADVANCE = 6 * 5;
@@ -25,8 +30,12 @@ struct ChunkMesh {
     bool isEmpty = true;
 
     std::vector<f32> data;
+    // For sorting
+    std::vector<Face> faces;
 
     ChunkMesh();
+
+    void sort();
 
     void positiveXFace(u32 x, u32 y, u32 z, Block *block);
     void negativeXFace(u32 x, u32 y, u32 z, Block *block);

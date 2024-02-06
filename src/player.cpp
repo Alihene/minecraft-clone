@@ -2,8 +2,17 @@
 
 #include "state.hpp"
 
+Player::Player() {
+    hotbar.blocks[0] = *state.blockManager->getBlockByType(Block::GRASS);
+    hotbar.blocks[1] = *state.blockManager->getBlockByType(Block::DIRT);
+    hotbar.blocks[2] = *state.blockManager->getBlockByType(Block::STONE);
+    hotbar.blocks[3] = *state.blockManager->getBlockByType(Block::GLASS);
+    hotbar.blocks[4] = *state.blockManager->getBlockByType(Block::WOOD_PLANKS);
+    hotbar.blocks[5] = *state.blockManager->getBlockByType(Block::COBBLESTONE);
+}
+
 void Player::update() {
-    f32 speed = 0.5f;
+    f32 speed = 0.2f;
 
     if(state.window->keyPressed(GLFW_KEY_W)) {
         pos += glm::vec3(
@@ -36,11 +45,47 @@ void Player::update() {
     }
 
     state.renderer->camera.pos = pos;
+
+    if(pos != lastPos) {
+        // Update transparent geometry
+        i32 chunkPosX = (i32) floorf((f32) pos.x / 16.0f);
+        i32 chunkPosZ = (i32) floorf((f32) pos.z / 16.0f);
+        Chunk *chunk = state.world->getChunk(glm::ivec2(chunkPosX, chunkPosZ));
+
+        if(chunk) {
+            chunk->mesh->sort();
+        }
+    }
+
+    i32 chunkPosX = (i32) floorf((f32) pos.x / 16.0f);
+    i32 chunkPosZ = (i32) floorf((f32) pos.z / 16.0f);
+
+    i32 lastChunkPosX = (i32) floorf((f32) lastPos.x / 16.0f);
+    i32 lastChunkPosZ = (i32) floorf((f32) lastPos.z / 16.0f);
+
+    if(!hasMoved) {
+        hasMoved = true;
+        state.world->sortChunks();
+    } else if(chunkPosX != lastChunkPosX || chunkPosZ != lastChunkPosZ) {
+        state.world->sortChunks();
+
+        for(i32 x = chunkPosX - 1; x <= chunkPosX + 1; x++) {
+            for(i32 z = chunkPosZ - 1; z <= chunkPosZ + 1; z++) {
+                Chunk *sideChunk = state.world->getChunk(glm::ivec2(x, z));
+
+                if(sideChunk) {
+                    sideChunk->mesh->sort();
+                }
+            }
+        }
+    }
+
+    lastPos = pos;
 }
 
 void Player::tryBreakBlock() {
     glm::ivec3 blockPos;
-    Block *block = rayCast(state.renderer->camera.front, 5, &blockPos);
+    Block *block = rayCast(state.renderer->camera.front, 5, &blockPos, nullptr);
 
     if(!block) {
         return;
@@ -49,7 +94,24 @@ void Player::tryBreakBlock() {
     state.world->setBlock(blockPos, state.blockManager->getBlockByType(Block::AIR));
 }
 
-Block *Player::rayCast(glm::vec3 dir, f32 distance, glm::ivec3 *outPos) {
+void Player::tryPlaceBlock() {
+    if(hotbar.get(hotbar.activeSlot).isAir()) {
+        return;
+    }
+
+    // blockPos is irrelevant, we need placePos
+    glm::ivec3 blockPos;
+    glm::ivec3 placePos;
+    if(rayCast(state.renderer->camera.front, 5, &blockPos, &placePos)) {
+        state.world->setBlock(placePos, &hotbar.get(hotbar.activeSlot));
+    }
+}
+
+void Player::setHotbarSlot(u32 slot) {
+    hotbar.activeSlot = slot;
+}
+
+Block *Player::rayCast(glm::vec3 dir, f32 distance, glm::ivec3 *outPos, glm::ivec3 *lastPos) {
     f32 deltaMagnitude = 0.01f;
     glm::vec3 delta = dir * deltaMagnitude;
 
@@ -62,6 +124,10 @@ Block *Player::rayCast(glm::vec3 dir, f32 distance, glm::ivec3 *outPos) {
         if(block && !block->isAir()) {
             *outPos = blockPos;
             return block;
+        }
+
+        if(lastPos) {
+            *lastPos = blockPos;
         }
 
         currentPos += delta;

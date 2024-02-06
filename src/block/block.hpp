@@ -7,12 +7,23 @@ struct Block {
     enum BlockType {
         AIR = 0,
         GRASS = 1,
-        STONE = 2
+        DIRT = 2,
+        STONE = 3,
+        GLASS = 4,
+        WOOD_PLANKS = 5,
+        COBBLESTONE = 6
     };
 
     BlockType type;
 
-    glm::vec4 texCoords;
+    struct {
+        glm::vec4 negX;
+        glm::vec4 posX;
+        glm::vec4 negY;
+        glm::vec4 posY;
+        glm::vec4 negZ;
+        glm::vec4 posZ;
+    } texCoords;
 
     bool transparent;
 

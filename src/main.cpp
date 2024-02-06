@@ -27,7 +27,7 @@ int main(i32 argc, char **argv) {
     Player player;
     state.player = &player;
 
-    world.setBlock(0, 0, 0, blockManager.getBlockByType(Block::STONE));
+    world.setBlock(0, 0, 0, blockManager.getBlockByType(Block::GLASS));
 
     while(!window.shouldClose()) {
         player.update();

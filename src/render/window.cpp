@@ -29,7 +29,7 @@ static void glfwKeyCallback(GLFWwindow* w, i32 key, i32 scancode, i32 action, i3
         }
         window->cursorActive = !window->cursorActive;
     }
-
+    
     if(key == GLFW_KEY_F1 && action == GLFW_PRESS) {
         Renderer *renderer = state.renderer;
         if(renderer->wireframeRender) {
@@ -40,6 +40,11 @@ static void glfwKeyCallback(GLFWwindow* w, i32 key, i32 scancode, i32 action, i3
 
         renderer->wireframeRender = !renderer->wireframeRender;
     }
+    
+    //Keys 1-9
+    if(key - 48 > 0 && key < 58) {
+        state.player->hotbar.activeSlot = key - 48;
+    }
 }
 
 static void glfwMouseButtonCallback(GLFWwindow *w, i32 button, i32 action, i32 mods) {
@@ -49,6 +54,12 @@ static void glfwMouseButtonCallback(GLFWwindow *w, i32 button, i32 action, i32 m
         }
 
         state.player->tryBreakBlock();
+    } else if(button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS) {
+        if(!state.world) {
+            return;
+        }
+
+        state.player->tryPlaceBlock();
     }
 }
 

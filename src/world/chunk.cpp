@@ -13,14 +13,22 @@ Chunk::Chunk() {
     for(i32 x = 0; x < WIDTH; x++) {
         for(i32 y = 0; y < 50; y++) {
             for(i32 z = 0; z < DEPTH; z++) {
-                set(x, y, z, state.blockManager->getBlockByType(Block::GRASS));
+                set(x, y, z, state.blockManager->getBlockByType(Block::STONE));
+            }
+        }
+    }
+
+    for(i32 x = 0; x < WIDTH; x++) {
+        for(i32 y = 50; y < 52; y++) {
+            for(i32 z = 0; z < DEPTH; z++) {
+                set(x, y, z, state.blockManager->getBlockByType(Block::DIRT));
             }
         }
     }
 
     for(i32 x = 0; x < WIDTH; x++) {
         for(i32 z = 0; z < DEPTH; z++) {
-            set(x, x + 50, z, state.blockManager->getBlockByType(Block::STONE));
+            set(x, 52, z, state.blockManager->getBlockByType(Block::GRASS));
         }
     }
 }

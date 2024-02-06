@@ -2,6 +2,8 @@
 
 #include "state.hpp"
 
+#include  <algorithm>
+
 void World::addChunk(glm::ivec2 pos) {
     Chunk *chunk = new Chunk();
     chunk->pos = pos;
@@ -116,6 +118,24 @@ void World::updateChunks() {
             return;
         }
     }
+}
+
+static bool chunkDepthCmp(Chunk *chunk1, Chunk *chunk2) {
+    f32 distance1 = glm::distance(
+        glm::vec2(chunk1->blockPos.x + Chunk::WIDTH / 2.0f, chunk1->blockPos.y + Chunk::DEPTH / 2.0f),
+        glm::vec2(
+            state.renderer->camera.pos.x,
+            state.renderer->camera.pos.z));
+    f32 distance2 = glm::distance(
+        glm::vec2(chunk2->blockPos.x + Chunk::WIDTH / 2.0f, chunk2->blockPos.y + Chunk::DEPTH / 2.0f),
+        glm::vec2(
+            state.renderer->camera.pos.x,
+            state.renderer->camera.pos.z));
+    return distance1 > distance2;
+}
+
+void World::sortChunks() {
+    std::sort(chunks.begin(), chunks.end(), chunkDepthCmp);
 }
 
 void World::loadChunks() {
