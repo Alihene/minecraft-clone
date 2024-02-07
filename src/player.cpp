@@ -9,6 +9,7 @@ Player::Player() {
     hotbar.blocks[3] = *state.blockManager->getBlockByType(Block::GLASS);
     hotbar.blocks[4] = *state.blockManager->getBlockByType(Block::WOOD_PLANKS);
     hotbar.blocks[5] = *state.blockManager->getBlockByType(Block::COBBLESTONE);
+    hotbar.blocks[6] = *state.blockManager->getBlockByType(Block::LOG);
 }
 
 void Player::update() {

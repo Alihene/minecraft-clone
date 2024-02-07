@@ -21,8 +21,11 @@ struct ChunkMesh {
 
     u32 vao;
     u32 vbo;
+    u32 transparentVao;
+    u32 transparentVbo;
 
     usize index = 0;
+    usize transparentIndex = 0;
 
     bool shouldBuffer = true;
     bool shouldMesh = false;
@@ -30,6 +33,7 @@ struct ChunkMesh {
     bool isEmpty = true;
 
     std::vector<f32> data;
+    std::vector<f32> transparentData;
     // For sorting
     std::vector<Face> faces;
 
@@ -44,7 +48,7 @@ struct ChunkMesh {
     void positiveZFace(u32 x, u32 y, u32 z, Block *block);
     void negativeZFace(u32 x, u32 y, u32 z, Block *block);
 
-    void addFace(f32 *vertices);
+    void addFace(f32 *vertices, bool transparent);
 
     void mesh();
 

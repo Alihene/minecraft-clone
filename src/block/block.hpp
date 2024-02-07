@@ -11,7 +11,8 @@ struct Block {
         STONE = 3,
         GLASS = 4,
         WOOD_PLANKS = 5,
-        COBBLESTONE = 6
+        COBBLESTONE = 6,
+        LOG = 7
     };
 
     BlockType type;

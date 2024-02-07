@@ -92,6 +92,19 @@ BlockManager::BlockManager() {
         .transparent = false,
         .solid = true
     });
+    blocks.push_back((Block) {
+        .type = Block::LOG,
+        .texCoords = {
+            .negX = {7.0f / 8.0f, 0.0f, 1.0f, 1.0f / 8.0f},
+            .posX = {7.0f / 8.0f, 0.0f, 1.0f, 1.0f / 8.0f},
+            .negY = {0.0f, 1.0f / 8.0f, 1.0f / 8.0f, 2.0f / 8.0f},
+            .posY = {0.0f, 1.0f / 8.0f, 1.0f / 8.0f, 2.0f / 8.0f},
+            .negZ = {7.0f / 8.0f, 0.0f, 1.0f, 1.0f / 8.0f},
+            .posZ = {7.0f / 8.0f, 0.0f, 1.0f, 1.0f / 8.0f}
+        },
+        .transparent = false,
+        .solid = true
+    });
 }
 
 Block *BlockManager::getBlockByType(Block::BlockType type) {

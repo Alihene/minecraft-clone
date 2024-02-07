@@ -46,6 +46,8 @@ void Renderer::renderChunkMesh(ChunkMesh *mesh) {
     if(mesh->shouldBuffer) {
         glBindBuffer(GL_ARRAY_BUFFER, mesh->vbo);
         glBufferData(GL_ARRAY_BUFFER, mesh->data.size() * sizeof(f32), &mesh->data[0], GL_DYNAMIC_DRAW);
+        glBindBuffer(GL_ARRAY_BUFFER, mesh->transparentVbo);
+        glBufferData(GL_ARRAY_BUFFER, mesh->transparentData.size() * sizeof(f32), &mesh->transparentData[0], GL_DYNAMIC_DRAW);
         mesh->shouldBuffer = false;
     }
 
@@ -57,4 +59,8 @@ void Renderer::renderChunkMesh(ChunkMesh *mesh) {
     glBindVertexArray(mesh->vao);
 
     glDrawArrays(GL_TRIANGLES, 0, mesh->index / 5);
+
+    glBindVertexArray(mesh->transparentVao);
+
+    glDrawArrays(GL_TRIANGLES, 0, mesh->transparentIndex / 5);
 }
