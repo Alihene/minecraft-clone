@@ -12,8 +12,8 @@ Player::Player() {
     hotbar.blocks[6] = *state.blockManager->getBlockByType(Block::LOG);
 }
 
-void Player::update() {
-    f32 speed = 0.2f;
+void Player::update(f32 timestep) {
+    f32 speed = 8.0f * timestep;
 
     if(state.window->keyPressed(GLFW_KEY_W)) {
         pos += glm::vec3(
@@ -49,8 +49,8 @@ void Player::update() {
 
     if(pos != lastPos) {
         // Update transparent geometry
-        i32 chunkPosX = (i32) floorf((f32) pos.x / 16.0f);
-        i32 chunkPosZ = (i32) floorf((f32) pos.z / 16.0f);
+        i32 chunkPosX = (i32) floorf((f32) pos.x / (f32) Chunk::WIDTH);
+        i32 chunkPosZ = (i32) floorf((f32) pos.z / (f32) Chunk::DEPTH);
         Chunk *chunk = state.world->getChunk(glm::ivec2(chunkPosX, chunkPosZ));
 
         if(chunk) {
@@ -58,11 +58,11 @@ void Player::update() {
         }
     }
 
-    i32 chunkPosX = (i32) floorf((f32) pos.x / 16.0f);
-    i32 chunkPosZ = (i32) floorf((f32) pos.z / 16.0f);
+    i32 chunkPosX = (i32) floorf((f32) pos.x / (f32) Chunk::WIDTH);
+    i32 chunkPosZ = (i32) floorf((f32) pos.z / (f32) Chunk::DEPTH);
 
-    i32 lastChunkPosX = (i32) floorf((f32) lastPos.x / 16.0f);
-    i32 lastChunkPosZ = (i32) floorf((f32) lastPos.z / 16.0f);
+    i32 lastChunkPosX = (i32) floorf((f32) lastPos.x / (f32) Chunk::WIDTH);
+    i32 lastChunkPosZ = (i32) floorf((f32) lastPos.z / (f32) Chunk::DEPTH);
 
     if(!hasMoved) {
         hasMoved = true;

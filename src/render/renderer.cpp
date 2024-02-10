@@ -43,12 +43,16 @@ void Renderer::renderWorld() {
 }
 
 void Renderer::renderChunkMesh(ChunkMesh *mesh) {
-    if(mesh->shouldBuffer) {
+    if(mesh->shouldBufferOpaque) {
         glBindBuffer(GL_ARRAY_BUFFER, mesh->vbo);
         glBufferData(GL_ARRAY_BUFFER, mesh->data.size() * sizeof(f32), &mesh->data[0], GL_DYNAMIC_DRAW);
+        mesh->shouldBufferOpaque = false;
+    }
+
+    if(mesh->shouldBufferTransparent) {
         glBindBuffer(GL_ARRAY_BUFFER, mesh->transparentVbo);
         glBufferData(GL_ARRAY_BUFFER, mesh->transparentData.size() * sizeof(f32), &mesh->transparentData[0], GL_DYNAMIC_DRAW);
-        mesh->shouldBuffer = false;
+        mesh->shouldBufferTransparent = false;
     }
 
     program.setMat4("uModel", glm::translate(glm::mat4(1.0f), glm::vec3(

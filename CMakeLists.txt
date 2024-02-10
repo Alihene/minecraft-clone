@@ -17,6 +17,7 @@ set(SOURCES
     src/render/camera.cpp
     src/render/texture.cpp
     src/block/block_manager.cpp
+    src/block/block.cpp
     src/world/chunk.cpp
     src/world/chunk_mesh.cpp
     src/world/world.cpp

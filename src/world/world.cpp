@@ -7,7 +7,9 @@
 void World::addChunk(glm::ivec2 pos) {
     Chunk *chunk = new Chunk();
     chunk->pos = pos;
-    chunk->blockPos = pos * 16;
+    chunk->blockPos = pos;
+    chunk->blockPos.x *= Chunk::WIDTH;
+    chunk->blockPos.y *= Chunk::DEPTH;
 
     std::vector<i32> blockSetIndices;
 
@@ -31,8 +33,8 @@ void World::setBlock(i32 x, i32 y, i32 z, Block *block) {
         return;
     }
 
-    i32 chunkPosX = (i32) floorf((f32) x / 16.0f);
-    i32 chunkPosZ = (i32) floorf((f32) z / 16.0f);
+    i32 chunkPosX = (i32) floorf((f32) x / (f32) Chunk::WIDTH);
+    i32 chunkPosZ = (i32) floorf((f32) z / (f32) Chunk::DEPTH);
 
     Chunk *chunk = nullptr;
     for(Chunk *c : chunks) {
@@ -86,8 +88,8 @@ void World::setBlock(glm::ivec3 pos, Block *block) {
 }
 
 Block *World::getBlock(i32 x, i32 y, i32 z) {
-    i32 chunkPosX = (i32) floorf((f32) x / 16.0f);
-    i32 chunkPosZ = (i32) floorf((f32) z / 16.0f);
+    i32 chunkPosX = (i32) floorf((f32) x / (f32) Chunk::WIDTH);
+    i32 chunkPosZ = (i32) floorf((f32) z / (f32) Chunk::DEPTH);
 
     Chunk *chunk = nullptr;
     for(Chunk *c : chunks) {
@@ -143,8 +145,8 @@ void World::loadChunks() {
 
     std::vector<i32> chunksToRemove;
 
-    i32 chunkPosX = (i32) floorf(state.player->pos.x / 16.0f);
-    i32 chunkPosZ = (i32) floorf(state.player->pos.z / 16.0f);
+    i32 chunkPosX = (i32) floorf(state.player->pos.x / (f32) Chunk::WIDTH);
+    i32 chunkPosZ = (i32) floorf(state.player->pos.z / (f32) Chunk::DEPTH);
 
     for(i32 i = 0; i < chunks.size(); i++) {
         Chunk *chunk = chunks[i];

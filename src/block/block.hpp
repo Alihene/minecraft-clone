@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <glm/glm.hpp>
+#include "util/util.hpp"
 
 struct Block {
     enum BlockType {
@@ -13,6 +14,15 @@ struct Block {
         WOOD_PLANKS = 5,
         COBBLESTONE = 6,
         LOG = 7
+    };
+
+    enum Rotation {
+        UP = 0,
+        DOWN = 2,
+        NORTH = 3,
+        EAST = 4,
+        SOUTH = 5,
+        WEST = 6
     };
 
     BlockType type;
@@ -33,4 +43,10 @@ struct Block {
     inline bool isAir() {
         return type == AIR;
     }
+
+    u16 pack(Rotation rotation = UP);
+
+    static Rotation getPackedRotation(u16 packedBlock);
+
+    static Block *getPackedBlock(u16 packedBlock);
 };

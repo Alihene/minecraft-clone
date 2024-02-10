@@ -20,7 +20,7 @@ struct Player {
 
     Player();
 
-    void update();
+    void update(f32 timestep);
 
     void tryBreakBlock();
 

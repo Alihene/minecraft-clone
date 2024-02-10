@@ -13,9 +13,9 @@ struct ChunkMesh {
         u32 indexBase;
     };
 
-    static constexpr usize MESH_SIZE = 6 * 6 * 5 * 16 * 128 * 16 * sizeof(f32);
+    static constexpr usize MESH_SIZE = 6 * 6 * 6 * 16 * 128 * 16 * sizeof(f32);
 
-    static constexpr usize ADVANCE = 6 * 5;
+    static constexpr usize ADVANCE = 6 * 6;
 
     Chunk *chunk;
 
@@ -27,7 +27,8 @@ struct ChunkMesh {
     usize index = 0;
     usize transparentIndex = 0;
 
-    bool shouldBuffer = true;
+    bool shouldBufferOpaque = true;
+    bool shouldBufferTransparent = true;
     bool shouldMesh = false;
     
     bool isEmpty = true;

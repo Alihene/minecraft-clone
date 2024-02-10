@@ -6,6 +6,13 @@
 #include <cstring>
 #include <algorithm>
 
+#define FACE_NEG_X 0
+#define FACE_POS_X 1
+#define FACE_NEG_Y 2
+#define FACE_POS_Y 3
+#define FACE_NEG_Z 4
+#define FACE_POS_Z 5
+
 static bool faceDepthCmp(const ChunkMesh::Face &face1, const ChunkMesh::Face &face2) {
     f32 distance1 = glm::distance(face1.pos, state.renderer->camera.pos);
     f32 distance2 = glm::distance(face2.pos, state.renderer->camera.pos);
@@ -19,10 +26,12 @@ ChunkMesh::ChunkMesh() {
     glGenBuffers(1, &vbo);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(f32), (void*) 0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(f32), (void*) 0);
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(f32), (void*) (3 * sizeof(f32)));
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 6 * sizeof(f32), (void*) (3 * sizeof(f32)));
     glEnableVertexAttribArray(1);
+    glVertexAttribPointer(2, 1, GL_FLOAT, GL_FALSE, 6 * sizeof(f32), (void*) (5 * sizeof(f32)));
+    glEnableVertexAttribArray(2);
 
     glGenVertexArrays(1, &transparentVao);
     glBindVertexArray(transparentVao);
@@ -30,10 +39,12 @@ ChunkMesh::ChunkMesh() {
     glGenBuffers(1, &transparentVbo);
     glBindBuffer(GL_ARRAY_BUFFER, transparentVbo);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(f32), (void*) 0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(f32), (void*) 0);
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(f32), (void*) (3 * sizeof(f32)));
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 6 * sizeof(f32), (void*) (3 * sizeof(f32)));
     glEnableVertexAttribArray(1);
+    glVertexAttribPointer(2, 1, GL_FLOAT, GL_FALSE, 6 * sizeof(f32), (void*) (5 * sizeof(f32)));
+    glEnableVertexAttribArray(2);
 }
 
 void ChunkMesh::sort() {
@@ -47,29 +58,29 @@ void ChunkMesh::sort() {
     std::sort(faces.begin(), faces.end(), faceDepthCmp);
 
     for(i32 i = 0; i < faces.size(); i++) {
-        std::memcpy(&transparentData[i * 6 * 5], &tempData[faces[i].indexBase], 6 * 5 * sizeof(f32));
-        faces[i].indexBase = i * 6 * 5;
+        std::memcpy(&transparentData[i * 6 * 6], &tempData[faces[i].indexBase], 6 * 6 * sizeof(f32));
+        faces[i].indexBase = i * 6 * 6;
     }
 
     std::free(tempData);
 
-    shouldBuffer = true;
+    shouldBufferTransparent = true;
 }
 
 void ChunkMesh::positiveXFace(u32 x, u32 y, u32 z, Block *block) {
     f32 positiveXFace[] {
-        x + 1 , y, z + 1, block->texCoords.posX.x, block->texCoords.posX.y,
-        x + 1, y, z, block->texCoords.posX.z, block->texCoords.posX.y,
-        x + 1, y + 1, z, block->texCoords.posX.z, block->texCoords.posX.w,
-        x + 1, y + 1, z, block->texCoords.posX.z, block->texCoords.posX.w,
-        x + 1, y + 1, z + 1, block->texCoords.posX.x, block->texCoords.posX.w,
-        x + 1, y, z + 1, block->texCoords.posX.x, block->texCoords.posX.y,
+        x + 1 , y, z + 1, block->texCoords.posX.x, block->texCoords.posX.y, 0.8f,
+        x + 1, y, z, block->texCoords.posX.z, block->texCoords.posX.y, 0.8f,
+        x + 1, y + 1, z, block->texCoords.posX.z, block->texCoords.posX.w, 0.8f,
+        x + 1, y + 1, z, block->texCoords.posX.z, block->texCoords.posX.w, 0.8f,
+        x + 1, y + 1, z + 1, block->texCoords.posX.x, block->texCoords.posX.w, 0.8f,
+        x + 1, y, z + 1, block->texCoords.posX.x, block->texCoords.posX.y, 0.8f,
     };
 
     addFace(positiveXFace, block->transparent);
     if(block->transparent) {
         faces.push_back((Face) {
-            .pos = glm::vec3(0.9f + x + chunk->pos.x * 16, 0.5f + y, 0.5f + z + chunk->pos.y * 16),
+            .pos = glm::vec3(0.9f + x + chunk->blockPos.x, 0.5f + y, 0.5f + z + chunk->pos.y * 16),
             .indexBase = transparentIndex
         });
     }
@@ -83,18 +94,18 @@ void ChunkMesh::positiveXFace(u32 x, u32 y, u32 z, Block *block) {
 
 void ChunkMesh::negativeXFace(u32 x, u32 y, u32 z, Block *block) {
     f32 negativeXFace[] {
-        x, y, z + 1, block->texCoords.negX.x, block->texCoords.negX.y,
-        x, y, z, block->texCoords.negX.z, block->texCoords.negX.y,
-        x, y + 1, z, block->texCoords.negX.z, block->texCoords.negX.w,
-        x, y + 1, z, block->texCoords.negX.z, block->texCoords.negX.w,
-        x, y + 1, z + 1, block->texCoords.negX.x, block->texCoords.negX.w,
-        x, y, z + 1, block->texCoords.negX.x, block->texCoords.negX.y,
+        x, y, z + 1, block->texCoords.negX.x, block->texCoords.negX.y, 0.8f,
+        x, y, z, block->texCoords.negX.z, block->texCoords.negX.y, 0.8f,
+        x, y + 1, z, block->texCoords.negX.z, block->texCoords.negX.w, 0.8f,
+        x, y + 1, z, block->texCoords.negX.z, block->texCoords.negX.w, 0.8f,
+        x, y + 1, z + 1, block->texCoords.negX.x, block->texCoords.negX.w, 0.8f,
+        x, y, z + 1, block->texCoords.negX.x, block->texCoords.negX.y, 0.8f,
     };
 
     addFace(negativeXFace, block->transparent);
     if(block->transparent) {
         faces.push_back((Face) {
-            .pos = glm::vec3(0.1f + x + chunk->pos.x * 16, 0.5f + y, 0.5f + z + chunk->pos.y * 16),
+            .pos = glm::vec3(0.1f + x + chunk->blockPos.x, 0.5f + y, 0.5f + z + chunk->pos.y * 16),
             .indexBase = transparentIndex
         });
     }
@@ -108,18 +119,18 @@ void ChunkMesh::negativeXFace(u32 x, u32 y, u32 z, Block *block) {
 
 void ChunkMesh::positiveYFace(u32 x, u32 y, u32 z, Block *block) {
     f32 positiveYFace[] {
-        x + 1, y + 1, z + 1, block->texCoords.posY.x, block->texCoords.posY.y,
-        x, y + 1, z + 1, block->texCoords.posY.z, block->texCoords.posY.y,
-        x, y + 1, z, block->texCoords.posY.z, block->texCoords.posY.w,
-        x, y + 1, z, block->texCoords.posY.z, block->texCoords.posY.w,
-        x + 1, y + 1, z, block->texCoords.posY.x, block->texCoords.posY.w,
-        x + 1, y + 1, z + 1, block->texCoords.posY.x, block->texCoords.posY.y,
+        x + 1, y + 1, z + 1, block->texCoords.posY.x, block->texCoords.posY.y, 1.0f,
+        x, y + 1, z + 1, block->texCoords.posY.z, block->texCoords.posY.y, 1.0f,
+        x, y + 1, z, block->texCoords.posY.z, block->texCoords.posY.w, 1.0f,
+        x, y + 1, z, block->texCoords.posY.z, block->texCoords.posY.w, 1.0f,
+        x + 1, y + 1, z, block->texCoords.posY.x, block->texCoords.posY.w, 1.0f,
+        x + 1, y + 1, z + 1, block->texCoords.posY.x, block->texCoords.posY.y, 1.0f,
     };
 
     addFace(positiveYFace, block->transparent);
     if(block->transparent) {
         faces.push_back((Face) {
-            .pos = glm::vec3(0.5f + x + chunk->pos.x * 16, 0.9f + y, 0.5f + z + chunk->pos.y * 16),
+            .pos = glm::vec3(0.5f + x + chunk->blockPos.x, 0.9f + y, 0.5f + z + chunk->pos.y * 16),
             .indexBase = transparentIndex
         });
     }
@@ -133,18 +144,18 @@ void ChunkMesh::positiveYFace(u32 x, u32 y, u32 z, Block *block) {
 
 void ChunkMesh::negativeYFace(u32 x, u32 y, u32 z, Block *block) {
     f32 negativeYFace[] {
-        x + 1, y, z + 1, block->texCoords.negY.x, block->texCoords.negY.y,
-        x, y, z + 1, block->texCoords.negY.z, block->texCoords.negY.y,
-        x, y, z, block->texCoords.negY.z, block->texCoords.negY.w,
-        x, y, z, block->texCoords.negY.z, block->texCoords.negY.w,
-        x + 1, y, z, block->texCoords.negY.x, block->texCoords.negY.w,
-        x + 1, y, z + 1, block->texCoords.negY.x, block->texCoords.negY.y,
+        x + 1, y, z + 1, block->texCoords.negY.x, block->texCoords.negY.y, 0.6f,
+        x, y, z + 1, block->texCoords.negY.z, block->texCoords.negY.y, 0.6f,
+        x, y, z, block->texCoords.negY.z, block->texCoords.negY.w, 0.6f,
+        x, y, z, block->texCoords.negY.z, block->texCoords.negY.w, 0.6f,
+        x + 1, y, z, block->texCoords.negY.x, block->texCoords.negY.w, 0.6f,
+        x + 1, y, z + 1, block->texCoords.negY.x, block->texCoords.negY.y, 0.6f,
     };
 
     addFace(negativeYFace, block->transparent);
     if(block->transparent) {
         faces.push_back((Face) {
-            .pos = glm::vec3(0.5f + x + chunk->pos.x * 16, 0.1f + y, 0.5f + z + chunk->pos.y * 16),
+            .pos = glm::vec3(0.5f + x + chunk->blockPos.x, 0.1f + y, 0.5f + z + chunk->pos.y * 16),
             .indexBase = transparentIndex
         });
     }
@@ -158,18 +169,18 @@ void ChunkMesh::negativeYFace(u32 x, u32 y, u32 z, Block *block) {
 
 void ChunkMesh::positiveZFace(u32 x, u32 y, u32 z, Block *block) {
     f32 positiveZFace[] {
-        x, y, z + 1, block->texCoords.posZ.x, block->texCoords.posZ.y,
-        x + 1, y, z + 1, block->texCoords.posZ.z, block->texCoords.posZ.y,
-        x + 1, y + 1, z + 1, block->texCoords.posZ.z, block->texCoords.posZ.w,
-        x + 1, y + 1, z + 1, block->texCoords.posZ.z, block->texCoords.posZ.w,
-        x, y + 1, z + 1, block->texCoords.posZ.x, block->texCoords.posZ.w,
-        x, y, z + 1, block->texCoords.posZ.x, block->texCoords.posZ.y,
+        x, y, z + 1, block->texCoords.posZ.x, block->texCoords.posZ.y, 0.85f,
+        x + 1, y, z + 1, block->texCoords.posZ.z, block->texCoords.posZ.y, 0.85f,
+        x + 1, y + 1, z + 1, block->texCoords.posZ.z, block->texCoords.posZ.w, 0.85f,
+        x + 1, y + 1, z + 1, block->texCoords.posZ.z, block->texCoords.posZ.w, 0.85f,
+        x, y + 1, z + 1, block->texCoords.posZ.x, block->texCoords.posZ.w, 0.85f,
+        x, y, z + 1, block->texCoords.posZ.x, block->texCoords.posZ.y, 0.85f,
     };
 
     addFace(positiveZFace, block->transparent);
     if(block->transparent) {
         faces.push_back((Face) {
-            .pos = glm::vec3(0.5f + x + chunk->pos.x * 16, 0.5f + y, 0.9f + z + chunk->pos.y * 16),
+            .pos = glm::vec3(0.5f + x + chunk->blockPos.x, 0.5f + y, 0.9f + z + chunk->pos.y * 16),
             .indexBase = transparentIndex
         });
     }
@@ -183,18 +194,18 @@ void ChunkMesh::positiveZFace(u32 x, u32 y, u32 z, Block *block) {
 
 void ChunkMesh::negativeZFace(u32 x, u32 y, u32 z, Block *block) {
     f32 negativeZFace[] {
-        x, y, z, block->texCoords.negZ.x, block->texCoords.negZ.y,
-        x + 1, y, z, block->texCoords.negZ.z, block->texCoords.negZ.y,
-        x + 1, y + 1, z, block->texCoords.negZ.z, block->texCoords.negZ.w,
-        x + 1, y + 1, z, block->texCoords.negZ.z, block->texCoords.negZ.w,
-        x, y + 1, z, block->texCoords.negZ.x, block->texCoords.negZ.w,
-        x, y, z, block->texCoords.negZ.x, block->texCoords.negZ.y,
+        x, y, z, block->texCoords.negZ.x, block->texCoords.negZ.y, 0.85f,
+        x + 1, y, z, block->texCoords.negZ.z, block->texCoords.negZ.y, 0.85f,
+        x + 1, y + 1, z, block->texCoords.negZ.z, block->texCoords.negZ.w, 0.85f,
+        x + 1, y + 1, z, block->texCoords.negZ.z, block->texCoords.negZ.w, 0.85f,
+        x, y + 1, z, block->texCoords.negZ.x, block->texCoords.negZ.w, 0.85f,
+        x, y, z, block->texCoords.negZ.x, block->texCoords.negZ.y, 0.85f,
     };
 
     addFace(negativeZFace, block->transparent);
     if(block->transparent) {
         faces.push_back((Face) {
-            .pos = glm::vec3(0.5f + x + chunk->pos.x * 16, 0.5f + y, 0.1f + z + chunk->pos.y * 16),
+            .pos = glm::vec3(0.5f + x + chunk->blockPos.x, 0.5f + y, 0.1f + z + chunk->pos.y * 16),
             .indexBase = transparentIndex
         });
     }
@@ -207,7 +218,7 @@ void ChunkMesh::negativeZFace(u32 x, u32 y, u32 z, Block *block) {
 }
 
 void ChunkMesh::addFace(f32 *vertices, bool transparent) {
-    for(i32 i = 0; i < 6 * 5; i++) {
+    for(i32 i = 0; i < 6 * 6; i++) {
         if(transparent) {
             transparentData.push_back(vertices[i]);
         } else {
@@ -283,7 +294,7 @@ void ChunkMesh::mesh() {
     sort();
 
     shouldMesh = false;
-    shouldBuffer = true;
+    shouldBufferOpaque = true;
 }
 
 void ChunkMesh::reset() {

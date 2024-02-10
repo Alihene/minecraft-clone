@@ -27,10 +27,15 @@ int main(i32 argc, char **argv) {
     Player player;
     state.player = &player;
 
-    world.setBlock(0, 0, 0, blockManager.getBlockByType(Block::GLASS));
+    f32 lastTime = 0.0f;
+    f32 timestep;
 
     while(!window.shouldClose()) {
-        player.update();
+        f32 currentTime = (f32) glfwGetTime();
+        timestep = currentTime - lastTime;
+        lastTime = currentTime;
+
+        player.update(timestep);
         renderer.camera.update();
 
         world.loadChunks();

@@ -19,10 +19,10 @@ struct Chunk {
     Chunk();
 
     Block *get(u32 x, u32 y, u32 z);
-    void set(u32 x, u32 y, u32 z, Block *block);
+    void set(u32 x, u32 y, u32 z, Block *block, Block::Rotation rotation = Block::UP);
 
     void destroy();
 
 private:
-    Block blocks[WIDTH][HEIGHT][DEPTH];
+    u16 blocks[WIDTH][HEIGHT][DEPTH];
 };
