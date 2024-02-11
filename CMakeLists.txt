@@ -22,7 +22,9 @@ set(SOURCES
     src/world/chunk_mesh.cpp
     src/world/world.cpp
     src/world/generation/flat_terrain_generator.cpp
-    src/player.cpp)
+    src/world/generation/overworld_terrain_generator.cpp
+    src/player.cpp
+    src/math/noise_generator.cpp)
 
 add_executable("minecraft-clone" ${SOURCES})
 

@@ -1,6 +1,7 @@
 #include "state.hpp"
 
 #include "world/generation/flat_terrain_generator.hpp"
+#include "world/generation/overworld_terrain_generator.hpp"
 
 State state;
 
@@ -29,7 +30,7 @@ int main(i32 argc, char **argv) {
     Player player;
     state.player = &player;
 
-    TerrainGenerator *terrainGenerator = new FlatTerrainGenerator();
+    TerrainGenerator *terrainGenerator = new OverworldTerrainGenerator();
     state.terrainGenerator = terrainGenerator;
 
     f32 lastTime = 0.0f;

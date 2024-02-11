@@ -8,7 +8,7 @@ struct ChunkMesh;
 
 struct Chunk {
     static constexpr u32 WIDTH = 16;
-    static constexpr u32 HEIGHT = 128;
+    static constexpr u32 HEIGHT = 256;
     static constexpr u32 DEPTH = 16;
 
     glm::ivec2 pos;

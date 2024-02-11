@@ -7,6 +7,7 @@
 #include "player.hpp"
 #include "util/settings.hpp"
 #include "world/generation/terrain_generator.hpp"
+#include "math/noise_generator.hpp"
 
 #include <thread>
 
