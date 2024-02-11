@@ -1,5 +1,7 @@
 #include "state.hpp"
 
+#include "world/generation/flat_terrain_generator.hpp"
+
 State state;
 
 int main(i32 argc, char **argv) {
@@ -27,6 +29,9 @@ int main(i32 argc, char **argv) {
     Player player;
     state.player = &player;
 
+    TerrainGenerator *terrainGenerator = new FlatTerrainGenerator();
+    state.terrainGenerator = terrainGenerator;
+
     f32 lastTime = 0.0f;
     f32 timestep;
 
@@ -49,6 +54,8 @@ int main(i32 argc, char **argv) {
     }
 
     world.destroy();
+
+    delete terrainGenerator;
 
     return 0;
 }

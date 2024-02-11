@@ -11,6 +11,8 @@ void World::addChunk(glm::ivec2 pos) {
     chunk->blockPos.x *= Chunk::WIDTH;
     chunk->blockPos.y *= Chunk::DEPTH;
 
+    state.terrainGenerator->generateTerrain(chunk);
+
     std::vector<i32> blockSetIndices;
 
     for(i32 i = 0; i < pendingBlockChanges.size(); i++) {

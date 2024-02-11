@@ -21,6 +21,7 @@ set(SOURCES
     src/world/chunk.cpp
     src/world/chunk_mesh.cpp
     src/world/world.cpp
+    src/world/generation/flat_terrain_generator.cpp
     src/player.cpp)
 
 add_executable("minecraft-clone" ${SOURCES})
