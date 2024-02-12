@@ -3,6 +3,8 @@
 #include "world/generation/flat_terrain_generator.hpp"
 #include "world/generation/overworld_terrain_generator.hpp"
 
+#include <thread>
+
 State state;
 
 int main(i32 argc, char **argv) {
@@ -33,6 +35,14 @@ int main(i32 argc, char **argv) {
     TerrainGenerator *terrainGenerator = new OverworldTerrainGenerator();
     state.terrainGenerator = terrainGenerator;
 
+    auto chunkMeshFunc = [&]() {
+        while(!window.shouldClose()) {
+            world.updateChunks();
+        }
+    };
+
+    std::thread chunkMeshThread(chunkMeshFunc);
+
     f32 lastTime = 0.0f;
     f32 timestep;
 
@@ -45,7 +55,7 @@ int main(i32 argc, char **argv) {
         renderer.camera.update();
 
         world.loadChunks();
-        world.updateChunks();
+        //world.updateChunks();
 
         renderer.prepareFrame();
 
@@ -53,6 +63,8 @@ int main(i32 argc, char **argv) {
 
         window.endFrame();
     }
+
+    chunkMeshThread.join();
 
     world.destroy();
 

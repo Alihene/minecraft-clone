@@ -35,11 +35,15 @@ void Renderer::renderWorld() {
 
     program.setInt("uTexture", 0);
 
+    world->chunkMutex.lock();
+
     for(Chunk *chunk : world->chunks) {
         if(!chunk->mesh->isEmpty) {
             renderChunkMesh(chunk->mesh);
         }
     }
+
+    world->chunkMutex.unlock();
 }
 
 void Renderer::renderChunkMesh(ChunkMesh *mesh) {

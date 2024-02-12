@@ -3,6 +3,7 @@
 #include "chunk.hpp"
 
 #include <vector>
+#include <mutex>
 
 #include <glm/glm.hpp>
 
@@ -14,6 +15,7 @@ struct BlockSetData {
 
 struct World {
     std::vector<Chunk*> chunks;
+    std::mutex chunkMutex;
     std::vector<BlockSetData> pendingBlockChanges;
 
     void addChunk(glm::ivec2 pos);

@@ -13,7 +13,7 @@ Player::Player() {
 }
 
 void Player::update(f32 timestep) {
-    f32 speed = 8.0f * timestep;
+    f32 speed = 50.0f * timestep;
 
     if(state.window->keyPressed(GLFW_KEY_W)) {
         pos += glm::vec3(

@@ -127,14 +127,24 @@ Block *World::getBlock(glm::ivec3 pos) {
 }
 
 void World::updateChunks() {
-    for(Chunk *chunk : chunks) {
+    //std::cout << "updateChunks()" << std::endl;
+    std::this_thread::sleep_for(std::chrono::milliseconds(10));
+
+    chunkMutex.lock();
+
+    for(i32 i = chunks.size() - 1; i >= 0; i--) {
+        Chunk *chunk = chunks[i];
+        //std::this_thread::sleep_for(std::chrono::milliseconds(1));
         ChunkMesh *mesh = chunk->mesh;
 
         if(mesh->shouldMesh) {
             mesh->mesh();
+            chunkMutex.unlock();
             return;
         }
     }
+
+    chunkMutex.unlock();
 }
 
 static bool chunkDepthCmp(Chunk *chunk1, Chunk *chunk2) {
@@ -152,16 +162,22 @@ static bool chunkDepthCmp(Chunk *chunk1, Chunk *chunk2) {
 }
 
 void World::sortChunks() {
+    chunkMutex.lock();
     std::sort(chunks.begin(), chunks.end(), chunkDepthCmp);
+    chunkMutex.unlock();
 }
 
 void World::loadChunks() {
+    //std::cout << "loadChunks()" << std::endl;
+
     i32 renderDistance = state.settings.renderDistance;
 
     std::vector<i32> chunksToRemove;
 
     i32 chunkPosX = (i32) floorf(state.player->pos.x / (f32) Chunk::WIDTH);
     i32 chunkPosZ = (i32) floorf(state.player->pos.z / (f32) Chunk::DEPTH);
+
+    chunkMutex.lock();
 
     for(i32 i = 0; i < chunks.size(); i++) {
         Chunk *chunk = chunks[i];
@@ -194,6 +210,7 @@ void World::loadChunks() {
             }
         }
     }
+    chunkMutex.unlock();
 }
 
 Chunk *World::getChunk(glm::ivec2 pos) {
