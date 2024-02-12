@@ -48,10 +48,6 @@ void OverworldTerrainGenerator::setBlocks(i32 maxHeight) {
     }
 }
 
-void OverworldTerrainGenerator::getHeight(i32 xMin, i32 zMin, i32 xMax, i32 zMax) {
-
-}
-
 void OverworldTerrainGenerator::makeHeightMap() {
     glm::ivec2 location = currentChunk->pos;
 
