@@ -28,6 +28,19 @@ void World::addChunk(glm::ivec2 pos) {
     }
 
     chunks.push_back(chunk);
+
+    Chunk *adjacentChunks[] = {
+        getChunk(glm::ivec2(chunk->pos.x - 1, chunk->pos.y)),
+        getChunk(glm::ivec2(chunk->pos.x + 1, chunk->pos.y)),
+        getChunk(glm::ivec2(chunk->pos.x, chunk->pos.y + 1)),
+        getChunk(glm::ivec2(chunk->pos.x, chunk->pos.y - 1)),
+    };
+
+    for(Chunk *c : adjacentChunks) {
+        if(c) {
+            c->mesh->shouldMesh = true;
+        }
+    }
 }
 
 void World::setBlock(i32 x, i32 y, i32 z, Block *block) {

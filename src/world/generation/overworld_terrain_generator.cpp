@@ -36,9 +36,12 @@ void OverworldTerrainGenerator::setBlocks(i32 maxHeight) {
             i32 height = heightMap[x][z];
 
             for(i32 y = 0; y < height; y++) {
-                currentChunk->set(x, y, z, state.blockManager->getBlockByType(Block::DIRT));
+                if(height - y > 4) {
+                    currentChunk->set(x, y, z, state.blockManager->getBlockByType(Block::STONE));
+                } else {
+                    currentChunk->set(x, y, z, state.blockManager->getBlockByType(Block::DIRT));
+                }
             }
-
 
             currentChunk->set(x, height, z, state.blockManager->getBlockByType(Block::GRASS));
         }
