@@ -15,7 +15,6 @@ struct OverworldTerrainGenerator : public TerrainGenerator {
     void generateTerrain(Chunk *chunk) override;
 
     void setBlocks(i32 maxHeight);
-
-    void getHeight(i32 xMin, i32 zMin, i32 xMax, i32 zMax);
+    
     void makeHeightMap();
 };
