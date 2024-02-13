@@ -41,6 +41,8 @@ void World::addChunk(glm::ivec2 pos) {
             c->mesh->shouldMesh = true;
         }
     }
+
+    sortChunks();
 }
 
 void World::setBlock(i32 x, i32 y, i32 z, Block *block) {
@@ -159,9 +161,7 @@ static bool chunkDepthCmp(Chunk *chunk1, Chunk *chunk2) {
 }
 
 void World::sortChunks() {
-    chunkMutex.lock();
     std::sort(chunks.begin(), chunks.end(), chunkDepthCmp);
-    chunkMutex.unlock();
 }
 
 void World::loadChunks() {

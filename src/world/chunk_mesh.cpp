@@ -117,14 +117,20 @@ void ChunkMesh::negativeXFace(u32 x, u32 y, u32 z, Block *block) {
     }
 }
 
-void ChunkMesh::positiveYFace(u32 x, u32 y, u32 z, Block *block) {
+void ChunkMesh::positiveYFace(u32 x, u32 y, u32 z, Block *block, bool topBlock) {
+    // Fluids are 1 pixel shorter than normal blocks
+    f32 yOffset = 1.0f;
+    if(!block->solid && topBlock) {
+        yOffset = 15.0f / 16.0f;
+    }
+
     f32 positiveYFace[] {
-        x + 1, y + 1, z + 1, block->texCoords.posY.x, block->texCoords.posY.y, 1.0f,
-        x, y + 1, z + 1, block->texCoords.posY.z, block->texCoords.posY.y, 1.0f,
-        x, y + 1, z, block->texCoords.posY.z, block->texCoords.posY.w, 1.0f,
-        x, y + 1, z, block->texCoords.posY.z, block->texCoords.posY.w, 1.0f,
-        x + 1, y + 1, z, block->texCoords.posY.x, block->texCoords.posY.w, 1.0f,
-        x + 1, y + 1, z + 1, block->texCoords.posY.x, block->texCoords.posY.y, 1.0f,
+        x + 1, y + yOffset, z + 1, block->texCoords.posY.x, block->texCoords.posY.y, 1.0f,
+        x, y + yOffset, z + 1, block->texCoords.posY.z, block->texCoords.posY.y, 1.0f,
+        x, y + yOffset, z, block->texCoords.posY.z, block->texCoords.posY.w, 1.0f,
+        x, y + yOffset, z, block->texCoords.posY.z, block->texCoords.posY.w, 1.0f,
+        x + 1, y + yOffset, z, block->texCoords.posY.x, block->texCoords.posY.w, 1.0f,
+        x + 1, y + yOffset, z + 1, block->texCoords.posY.x, block->texCoords.posY.y, 1.0f,
     };
 
     addFace(positiveYFace, block->transparent);
@@ -241,46 +247,44 @@ void ChunkMesh::mesh() {
                 Block &block = *chunk->get(x, y, z);
 
                 if(!block.isAir()) {
-                    if(x > 0 && (chunk->get(x - 1, y, z)->isAir() || chunk->get(x - 1, y, z)->transparent)) {
+                    if(x > 0 && (chunk->get(x - 1, y, z)->isAir() || (!block.transparent && chunk->get(x - 1, y, z)->transparent))) {
                         negativeXFace(x, y, z, &block);
                     } else if(x == 0) {
-                        if(left != nullptr && (left->get(Chunk::WIDTH - 1, y, z)->isAir() || left->get(Chunk::WIDTH - 1, y, z)->transparent)) {
+                        if(left != nullptr && (left->get(Chunk::WIDTH - 1, y, z)->isAir() || (!block.transparent && left->get(Chunk::WIDTH - 1, y, z)->transparent))) {
                             negativeXFace(x, y, z, &block);
                         }
                     }
 
-                    if(x < Chunk::WIDTH - 1 && (chunk->get(x + 1, y, z)->isAir() || chunk->get(x + 1, y, z)->transparent)) {
+                    if(x < Chunk::WIDTH - 1 && (chunk->get(x + 1, y, z)->isAir() || (!block.transparent && chunk->get(x + 1, y, z)->transparent))) {
                         positiveXFace(x, y, z, &block);
                     } else if(x == Chunk::WIDTH - 1) {
-                        if(right != nullptr && (right->get(0, y, z)->isAir() || right->get(0, y, z)->transparent)) {
+                        if(right != nullptr && (right->get(0, y, z)->isAir() || (!block.transparent && right->get(0, y, z)->transparent))) {
                             positiveXFace(x, y, z, &block);
                         }
                     }
 
-                    if(y > 0 && (chunk->get(x, y - 1, z)->isAir() || chunk->get(x, y - 1, z)->transparent)) {
-                        negativeYFace(x, y, z, &block);
-                    } else if(y == 0) {
+                    if(y > 0 && (chunk->get(x, y - 1, z)->isAir() || (!block.transparent && chunk->get(x, y - 1, z)->transparent))) {
                         negativeYFace(x, y, z, &block);
                     }
 
-                    if(y < Chunk::HEIGHT - 1 && (chunk->get(x, y + 1, z)->isAir() || chunk->get(x, y + 1, z)->transparent)) {
-                        positiveYFace(x, y, z, &block);
+                    if(y < Chunk::HEIGHT - 1 && (chunk->get(x, y + 1, z)->isAir() || (!block.transparent && chunk->get(x, y + 1, z)->transparent))) {
+                        positiveYFace(x, y, z, &block, chunk->get(x, y + 1, z)->type != block.type);
                     } else if(y == Chunk::HEIGHT - 1) {
-                        positiveYFace(x, y, z, &block);
+                        positiveYFace(x, y, z, &block, true);
                     }
 
-                    if(z > 0 && (chunk->get(x, y, z - 1)->isAir() || chunk->get(x, y, z - 1)->transparent)) {
+                    if(z > 0 && (chunk->get(x, y, z - 1)->isAir() || (!block.transparent && chunk->get(x, y, z - 1)->transparent))) {
                         negativeZFace(x, y, z, &block);
                     } else if(z == 0) {
-                        if(back != nullptr && (back->get(x, y, Chunk::DEPTH - 1)->isAir() || back->get(x, y, Chunk::DEPTH - 1)->transparent)) {
+                        if(back != nullptr && (back->get(x, y, Chunk::DEPTH - 1)->isAir() || (!block.transparent && back->get(x, y, Chunk::DEPTH - 1)->transparent))) {
                             negativeZFace(x, y, z, &block);
                         }
                     }
 
-                    if(z < Chunk::DEPTH - 1 && (chunk->get(x, y, z + 1)->isAir() || chunk->get(x, y, z + 1)->transparent)) {
+                    if(z < Chunk::DEPTH - 1 && (chunk->get(x, y, z + 1)->isAir() || (!block.transparent && chunk->get(x, y, z + 1)->transparent))) {
                         positiveZFace(x, y, z, &block);
                     } else if(z == Chunk::DEPTH - 1) {
-                        if(front != nullptr && (front->get(x, y, 0)->isAir() || front->get(x, y, 0)->transparent)) {
+                        if(front != nullptr && (front->get(x, y, 0)->isAir() || (!block.transparent && front->get(x, y, 0)->transparent))) {
                             positiveZFace(x, y, z, &block);
                         }
                     }

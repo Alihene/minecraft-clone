@@ -44,7 +44,7 @@ struct ChunkMesh {
 
     void positiveXFace(u32 x, u32 y, u32 z, Block *block);
     void negativeXFace(u32 x, u32 y, u32 z, Block *block);
-    void positiveYFace(u32 x, u32 y, u32 z, Block *block);
+    void positiveYFace(u32 x, u32 y, u32 z, Block *block, bool topBlock);
     void negativeYFace(u32 x, u32 y, u32 z, Block *block);
     void positiveZFace(u32 x, u32 y, u32 z, Block *block);
     void negativeZFace(u32 x, u32 y, u32 z, Block *block);

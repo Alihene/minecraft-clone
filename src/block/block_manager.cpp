@@ -105,6 +105,32 @@ BlockManager::BlockManager() {
         .transparent = false,
         .solid = true
     });
+    blocks.push_back((Block) {
+        .type = Block::WATER,
+        .texCoords = {
+            .negX = {1.0f / 8.0f, 1.0f / 8.0f, 2.0f / 8.0f, 2.0f / 8.0f},
+            .posX = {1.0f / 8.0f, 1.0f / 8.0f, 2.0f / 8.0f, 2.0f / 8.0f},
+            .negY = {1.0f / 8.0f, 1.0f / 8.0f, 2.0f / 8.0f, 2.0f / 8.0f},
+            .posY = {1.0f / 8.0f, 1.0f / 8.0f, 2.0f / 8.0f, 2.0f / 8.0f},
+            .negZ = {1.0f / 8.0f, 1.0f / 8.0f, 2.0f / 8.0f, 2.0f / 8.0f},
+            .posZ = {1.0f / 8.0f, 1.0f / 8.0f, 2.0f / 8.0f, 2.0f / 8.0f}
+        },
+        .transparent = true,
+        .solid = false
+    });
+    blocks.push_back((Block) {
+        .type = Block::SAND,
+        .texCoords = {
+            .negX = {2.0f / 8.0f, 1.0f / 8.0f, 3.0f / 8.0f, 2.0f / 8.0f},
+            .posX = {2.0f / 8.0f, 1.0f / 8.0f, 3.0f / 8.0f, 2.0f / 8.0f},
+            .negY = {2.0f / 8.0f, 1.0f / 8.0f, 3.0f / 8.0f, 2.0f / 8.0f},
+            .posY = {2.0f / 8.0f, 1.0f / 8.0f, 3.0f / 8.0f, 2.0f / 8.0f},
+            .negZ = {2.0f / 8.0f, 1.0f / 8.0f, 3.0f / 8.0f, 2.0f / 8.0f},
+            .posZ = {2.0f / 8.0f, 1.0f / 8.0f, 3.0f / 8.0f, 2.0f / 8.0f}
+        },
+        .transparent = false,
+        .solid = true
+    });
 }
 
 Block *BlockManager::getBlockByType(Block::BlockType type) {

@@ -13,7 +13,9 @@ struct Block {
         GLASS = 4,
         WOOD_PLANKS = 5,
         COBBLESTONE = 6,
-        LOG = 7
+        LOG = 7,
+        WATER = 8,
+        SAND = 9
     };
 
     enum Rotation {
@@ -51,4 +53,4 @@ struct Block {
     static Block *getPackedBlock(u16 packedBlock);
 };
 
-#define BLOCK_TYPE_LAST Block::LOG
+#define BLOCK_TYPE_LAST Block::SAND

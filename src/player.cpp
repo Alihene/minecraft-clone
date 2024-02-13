@@ -10,6 +10,8 @@ Player::Player() {
     hotbar.blocks[4] = *state.blockManager->getBlockByType(Block::WOOD_PLANKS);
     hotbar.blocks[5] = *state.blockManager->getBlockByType(Block::COBBLESTONE);
     hotbar.blocks[6] = *state.blockManager->getBlockByType(Block::LOG);
+    hotbar.blocks[7] = *state.blockManager->getBlockByType(Block::WATER);
+    hotbar.blocks[8] = *state.blockManager->getBlockByType(Block::SAND);
 }
 
 void Player::update(f32 timestep) {
@@ -66,9 +68,13 @@ void Player::update(f32 timestep) {
 
     if(!hasMoved) {
         hasMoved = true;
+        state.world->chunkMutex.lock();
         state.world->sortChunks();
+        state.world->chunkMutex.unlock();
     } else if(chunkPosX != lastChunkPosX || chunkPosZ != lastChunkPosZ) {
+        state.world->chunkMutex.lock();
         state.world->sortChunks();
+        state.world->chunkMutex.unlock();
 
         for(i32 x = chunkPosX - 1; x <= chunkPosX + 1; x++) {
             for(i32 z = chunkPosZ - 1; z <= chunkPosZ + 1; z++) {
