@@ -108,10 +108,8 @@ BlockManager::BlockManager() {
 }
 
 Block *BlockManager::getBlockByType(Block::BlockType type) {
-    for(Block &block : blocks) {
-        if(block.type == type) {
-            return &block;
-        }
+    if(type <= BLOCK_TYPE_LAST && type > -1) {
+        return &blocks[type];
     }
     return nullptr;
 }

@@ -50,3 +50,5 @@ struct Block {
 
     static Block *getPackedBlock(u16 packedBlock);
 };
+
+#define BLOCK_TYPE_LAST Block::LOG

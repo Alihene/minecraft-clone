@@ -127,14 +127,11 @@ Block *World::getBlock(glm::ivec3 pos) {
 }
 
 void World::updateChunks() {
-    //std::cout << "updateChunks()" << std::endl;
-    std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    std::this_thread::sleep_for(std::chrono::milliseconds(5));
 
     chunkMutex.lock();
 
-    for(i32 i = chunks.size() - 1; i >= 0; i--) {
-        Chunk *chunk = chunks[i];
-        //std::this_thread::sleep_for(std::chrono::milliseconds(1));
+    for(Chunk *chunk : chunks) {
         ChunkMesh *mesh = chunk->mesh;
 
         if(mesh->shouldMesh) {
@@ -168,8 +165,6 @@ void World::sortChunks() {
 }
 
 void World::loadChunks() {
-    //std::cout << "loadChunks()" << std::endl;
-
     i32 renderDistance = state.settings.renderDistance;
 
     std::vector<i32> chunksToRemove;
@@ -207,6 +202,8 @@ void World::loadChunks() {
 
             if(!chunkExists) {
                 addChunk({x + chunkPosX, z + chunkPosZ});
+                chunkMutex.unlock();
+                return;
             }
         }
     }
