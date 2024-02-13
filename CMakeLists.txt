@@ -8,6 +8,7 @@ add_subdirectory("thirdparty/glfw")
 add_subdirectory("thirdparty/glad")
 add_subdirectory("thirdparty/glm")
 add_subdirectory("thirdparty/stb_image")
+add_subdirectory("thirdparty/noise")
 
 set(SOURCES
     src/main.cpp
@@ -23,10 +24,9 @@ set(SOURCES
     src/world/world.cpp
     src/world/generation/flat_terrain_generator.cpp
     src/world/generation/overworld_terrain_generator.cpp
-    src/player.cpp
-    src/math/noise_generator.cpp)
+    src/player.cpp)
 
 add_executable("minecraft-clone" ${SOURCES})
 
 target_include_directories("minecraft-clone" PRIVATE "src")
-target_link_libraries("minecraft-clone" PRIVATE glfw glad glm stb_image)
+target_link_libraries("minecraft-clone" PRIVATE glfw glad glm stb_image noise)

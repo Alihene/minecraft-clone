@@ -2,17 +2,6 @@
 
 #include "state.hpp"
 
-OverworldTerrainGenerator::OverworldTerrainGenerator() {
-    NoiseParams params;
-    params.octaves = 5;
-    params.amplitude = 100;
-    params.smoothness = 400;
-    params.heightOffset = 0;
-    params.roughness = 0.75;
-
-    generator = NoiseGenerator(432, params);
-}
-
 void OverworldTerrainGenerator::generateTerrain(Chunk *chunk) {
     this->currentChunk = chunk;
     makeHeightMap();
@@ -51,10 +40,14 @@ void OverworldTerrainGenerator::setBlocks(i32 maxHeight) {
 void OverworldTerrainGenerator::makeHeightMap() {
     glm::ivec2 location = currentChunk->pos;
 
+    i32 offset = std::numeric_limits<i32>::max();
+
     for (i32 x = 0; x < Chunk::WIDTH; x++) {
         for (i32 z = 0; z < Chunk::DEPTH; z++)
         {
-            i32 height = generator.getHeight(x, z, location.x, location.y);
+            f64 floatHeight = perlinNoise.noise2D_01(((x + (location.x * Chunk::WIDTH)) - offset) * 0.01, (((z) + (location.y * Chunk::DEPTH)) - offset) * 0.01);
+            floatHeight *= 50;
+            i32 height = (i32) floatHeight;
             heightMap[x][z] = height;
         }
     }

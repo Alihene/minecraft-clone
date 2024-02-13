@@ -1,16 +1,18 @@
 #pragma once
 
+#include <noise/PerlinNoise.hpp>
+
 #include "terrain_generator.hpp"
-#include "math/noise_generator.hpp"
 
 struct OverworldTerrainGenerator : public TerrainGenerator {
-    NoiseGenerator generator;
+    siv::PerlinNoise::seed_type seed = 0;
+    siv::PerlinNoise perlinNoise {seed};
 
     i32 heightMap[Chunk::WIDTH][Chunk::DEPTH];
 
     Chunk *currentChunk = nullptr;
 
-    OverworldTerrainGenerator();
+    OverworldTerrainGenerator() = default;
 
     void generateTerrain(Chunk *chunk) override;
 
