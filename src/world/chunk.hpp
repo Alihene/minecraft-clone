@@ -11,6 +11,8 @@ struct Chunk {
     static constexpr u32 HEIGHT = 256;
     static constexpr u32 DEPTH = 16;
 
+    u16 blocks[WIDTH][HEIGHT][DEPTH];
+
     glm::ivec2 pos;
     glm::ivec2 blockPos;
 
@@ -22,7 +24,4 @@ struct Chunk {
     void set(u32 x, u32 y, u32 z, Block *block, Block::Rotation rotation = Block::UP);
 
     void destroy();
-
-private:
-    u16 blocks[WIDTH][HEIGHT][DEPTH];
 };

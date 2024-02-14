@@ -73,7 +73,6 @@ Window::Window(std::string name, u32 width, u32 height) : dimensions(width, heig
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
     handle = glfwCreateWindow(width, height, name.c_str(), nullptr, nullptr);
 
     if(!handle) {

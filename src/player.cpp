@@ -98,7 +98,7 @@ void Player::tryBreakBlock() {
         return;
     }
 
-    state.world->setBlock(blockPos, state.blockManager->getBlockByType(Block::AIR));
+    state.world->setBlockAndMesh(blockPos, state.blockManager->getBlockByType(Block::AIR));
 }
 
 void Player::tryPlaceBlock() {
@@ -110,7 +110,7 @@ void Player::tryPlaceBlock() {
     glm::ivec3 blockPos;
     glm::ivec3 placePos;
     if(rayCast(state.renderer->camera.front, 5, &blockPos, &placePos)) {
-        state.world->setBlock(placePos, &hotbar.get(hotbar.activeSlot));
+        state.world->setBlockAndMesh(placePos, &hotbar.get(hotbar.activeSlot));
     }
 }
 

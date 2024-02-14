@@ -2,7 +2,8 @@
 
 #include "state.hpp"
 
-#include  <algorithm>
+#include <algorithm>
+#include <cstring>
 
 void World::addChunk(glm::ivec2 pos) {
     Chunk *chunk = new Chunk();
@@ -27,6 +28,7 @@ void World::addChunk(glm::ivec2 pos) {
         pendingBlockChanges.erase(pendingBlockChanges.begin() + blockSetIndices[i]);
     }
 
+    updateChunkStorage(chunk);
     chunks.push_back(chunk);
 
     Chunk *adjacentChunks[] = {
@@ -74,6 +76,7 @@ void World::setBlock(i32 x, i32 y, i32 z, Block *block) {
     }
 
     chunk->set(posInChunk.x, posInChunk.y, posInChunk.z, block);
+    storage.setChunk(chunk);
 
     if(posInChunk.x == 0) {
         Chunk *left = state.world->getChunk(glm::ivec2(chunk->pos.x - 1, chunk->pos.y));
@@ -100,8 +103,25 @@ void World::setBlock(i32 x, i32 y, i32 z, Block *block) {
     }
 }
 
+void World::setBlockAndMesh(i32 x, i32 y, i32 z, Block *block) {
+    setBlock(x, y, z, block);
+
+    i32 chunkPosX = (i32) floorf((f32) x / (f32) Chunk::WIDTH);
+    i32 chunkPosZ = (i32) floorf((f32) z / (f32) Chunk::DEPTH);
+    chunkMutex.lock();
+    Chunk *chunk = getChunk(glm::ivec2(chunkPosX, chunkPosZ));
+    if(chunk) {
+        chunk->mesh->mesh();
+    }
+    chunkMutex.unlock();
+}
+
 void World::setBlock(glm::ivec3 pos, Block *block) {
     setBlock(pos.x, pos.y, pos.z, block);
+}
+
+void World::setBlockAndMesh(glm::ivec3 pos, Block *block) {
+    setBlockAndMesh(pos.x, pos.y, pos.z, block);
 }
 
 Block *World::getBlock(i32 x, i32 y, i32 z) {
@@ -208,6 +228,16 @@ void World::loadChunks() {
         }
     }
     chunkMutex.unlock();
+}
+
+void World::updateChunkStorage(Chunk *chunk) {
+    ChunkData *data = storage.getChunkData(chunk->pos.x, chunk->pos.y);
+
+    if(!data) {
+        storage.setChunk(chunk);
+    } else {
+        data->writeData(chunk);
+    }
 }
 
 Chunk *World::getChunk(glm::ivec2 pos) {
