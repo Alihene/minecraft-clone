@@ -41,5 +41,7 @@ struct ChunkStorage {
 
     void setChunk(Chunk *chunk);
 
+    void addData(ChunkData *data, i32 x, i32 y);
+
     void destroy();
 };

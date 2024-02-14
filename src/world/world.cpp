@@ -12,7 +12,14 @@ void World::addChunk(glm::ivec2 pos) {
     chunk->blockPos.x *= Chunk::WIDTH;
     chunk->blockPos.y *= Chunk::DEPTH;
 
-    state.terrainGenerator->generateTerrain(chunk);
+    ChunkData *data = storage.getChunkData(chunk->pos.x, chunk->pos.y);
+
+    if(!data) {
+        state.terrainGenerator->generateTerrain(chunk);
+        storage.setChunk(chunk);
+    } else {
+        data->writeData(chunk);
+    }
 
     std::vector<i32> blockSetIndices;
 
@@ -28,7 +35,9 @@ void World::addChunk(glm::ivec2 pos) {
         pendingBlockChanges.erase(pendingBlockChanges.begin() + blockSetIndices[i]);
     }
 
-    updateChunkStorage(chunk);
+    data = storage.getChunkData(pos.x, pos.y);
+    data->setData(chunk);
+
     chunks.push_back(chunk);
 
     Chunk *adjacentChunks[] = {
@@ -66,12 +75,13 @@ void World::setBlock(i32 x, i32 y, i32 z, Block *block) {
     glm::ivec3 posInChunk = glm::ivec3(x % Chunk::WIDTH, y, z % Chunk::DEPTH);
 
     if(!chunk) {
-        // Chunk isn't loaded, block needs to be set when this chunk loads
+        // // Chunk isn't loaded, block needs to be set when this chunk loads
         pendingBlockChanges.push_back((BlockSetData) {
             .chunkPos = glm::ivec2(chunkPosX, chunkPosZ),
             .blockPos = posInChunk,
             .block = block
         });
+
         return;
     }
 

@@ -109,6 +109,30 @@ void ChunkStorage::setChunk(Chunk *chunk) {
     data->setData(chunk);
 }
 
+void ChunkStorage::addData(ChunkData *data, i32 x, i32 y) {
+    ChunkRegion *region = nullptr;
+
+    for(ChunkRegion &r : regions) {
+        if(r.pos == ChunkRegion::chunkPosToRegionPos(x, y)) {
+            region = &r;
+            break;
+        }
+    }
+
+    if(!region) {
+        ChunkRegion newRegion;
+        newRegion.pos = ChunkRegion::chunkPosToRegionPos(x, y);
+        newRegion.chunks[x % ChunkRegion::SIZE][y % ChunkRegion::SIZE] = data;
+        newRegion.addedPositions.push_back(glm::ivec2(x, y));
+
+        regions.push_back(newRegion);
+        return;
+    }
+
+    region->chunks[x % ChunkRegion::SIZE][y % ChunkRegion::SIZE] = data;
+    region->addedPositions.push_back(glm::ivec2(x, y));
+}
+
 void ChunkStorage::destroy() {
     for(ChunkRegion &region : regions) {
         region.destroy();

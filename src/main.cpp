@@ -46,6 +46,8 @@ int main(i32 argc, char **argv) {
     f32 lastTime = 0.0f;
     f32 timestep;
 
+    world.setBlock(200, 100, 200, blockManager.getBlockByType(Block::LOG));
+
     while(!window.shouldClose()) {
         f32 currentTime = (f32) glfwGetTime();
         timestep = currentTime - lastTime;
