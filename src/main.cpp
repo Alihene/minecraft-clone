@@ -55,7 +55,6 @@ int main(i32 argc, char **argv) {
         renderer.camera.update();
 
         world.loadChunks();
-        //world.updateChunks();
 
         renderer.prepareFrame();
 

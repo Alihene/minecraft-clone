@@ -39,7 +39,11 @@ Texture::Texture(std::string path, TextureFormat format) : format(format) {
 }
 
 void Texture::bind() {
-    glBindTexture(GL_TEXTURE_2D, handle);
+    bind(GL_TEXTURE_2D);
+}
+
+void Texture::bind(u32 target) {
+    glBindTexture(target, handle);
 }
 
 void Texture::activate(u8 index) {

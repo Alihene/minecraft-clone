@@ -3,6 +3,7 @@
 #include "state.hpp"
 
 #include <glm/gtc/matrix_transform.hpp>
+#include <stb_image/stb_image.h>
 
 Renderer::Renderer() {
     glClearColor(0.1f, 0.85f, 1.0f, 1.0f);
@@ -10,6 +11,8 @@ Renderer::Renderer() {
     program = ShaderProgram("shaders/chunk.vert", "shaders/chunk.frag");
 
     textureAtlas = Texture(state.resourceDir + "textures/atlas.png", Texture::FORMAT_RGBA);
+
+    skyboxRenderer = SkyboxRenderer(&camera);
 
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
@@ -21,6 +24,8 @@ void Renderer::prepareFrame() {
 }
 
 void Renderer::renderWorld() {
+    renderSkyBox();
+
     World *world = state.world;
 
     if(world == nullptr) {
@@ -44,6 +49,10 @@ void Renderer::renderWorld() {
     }
 
     world->chunkMutex.unlock();
+}
+
+void Renderer::renderSkyBox() {
+    skyboxRenderer.renderSkybox();
 }
 
 void Renderer::renderChunkMesh(ChunkMesh *mesh) {

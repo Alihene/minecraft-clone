@@ -4,14 +4,17 @@
 #include "shader_program.hpp"
 #include "world/chunk_mesh.hpp"
 #include "camera.hpp"
-#include "texture.hpp"
+#include "skybox_renderer.hpp"
 
 struct Renderer {
     ShaderProgram program;
 
     Texture textureAtlas;
+    Texture cubemap;
 
     Camera camera;
+
+    SkyboxRenderer skyboxRenderer;
 
     bool wireframeRender = false;
 
@@ -20,6 +23,8 @@ struct Renderer {
     void prepareFrame();
 
     void renderWorld();
+    
+    void renderSkyBox();
     
     void renderChunkMesh(ChunkMesh *mesh);
 };

@@ -16,6 +16,7 @@ struct Texture {
     Texture(std::string path, TextureFormat format);
 
     void bind();
+    void bind(u32 target);
 
     static void activate(u8 index);
 };

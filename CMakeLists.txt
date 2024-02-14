@@ -14,6 +14,7 @@ set(SOURCES
     src/main.cpp
     src/render/window.cpp
     src/render/renderer.cpp
+    src/render/skybox_renderer.cpp
     src/render/shader_program.cpp
     src/render/camera.cpp
     src/render/texture.cpp
