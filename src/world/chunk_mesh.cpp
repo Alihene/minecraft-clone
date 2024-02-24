@@ -299,6 +299,7 @@ void ChunkMesh::mesh() {
 
     shouldMesh = false;
     shouldBufferOpaque = true;
+    shouldBufferTransparent = true;
 }
 
 void ChunkMesh::reset() {

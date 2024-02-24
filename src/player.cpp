@@ -88,8 +88,6 @@ void Player::update(f32 timestep) {
     }
 
     lastPos = pos;
-
-    std::cout << pos.x << ", " << pos.y << ", " << pos.z << std::endl;
 }
 
 void Player::tryBreakBlock() {

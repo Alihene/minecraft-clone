@@ -268,4 +268,5 @@ void World::destroy() {
     for(Chunk *chunk : chunks) {
         delete chunk;
     }
+    storage.destroy();
 }
