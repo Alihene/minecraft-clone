@@ -131,6 +131,19 @@ BlockManager::BlockManager() {
         .transparent = false,
         .solid = true
     });
+    blocks.push_back((Block) {
+        .type = Block::LEAVES,
+        .texCoords = {
+            .negX = {3.0f / 8.0f, 1.0f / 8.0f, 4.0f / 8.0f, 2.0f / 8.0f},
+            .posX = {3.0f / 8.0f, 1.0f / 8.0f, 4.0f / 8.0f, 2.0f / 8.0f},
+            .negY = {3.0f / 8.0f, 1.0f / 8.0f, 4.0f / 8.0f, 2.0f / 8.0f},
+            .posY = {3.0f / 8.0f, 1.0f / 8.0f, 4.0f / 8.0f, 2.0f / 8.0f},
+            .negZ = {3.0f / 8.0f, 1.0f / 8.0f, 4.0f / 8.0f, 2.0f / 8.0f},
+            .posZ = {3.0f / 8.0f, 1.0f / 8.0f, 4.0f / 8.0f, 2.0f / 8.0f}
+        },
+        .transparent = true,
+        .solid = true
+    });
 }
 
 Block *BlockManager::getBlockByType(Block::BlockType type) {

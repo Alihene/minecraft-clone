@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.16)
 project("minecraft-clone")
 
 set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2")
 
 add_subdirectory("thirdparty/glfw")
 add_subdirectory("thirdparty/glad")

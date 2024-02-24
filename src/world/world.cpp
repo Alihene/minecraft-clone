@@ -159,21 +159,21 @@ Block *World::getBlock(glm::ivec3 pos) {
 }
 
 void World::updateChunks() {
-    std::this_thread::sleep_for(std::chrono::milliseconds(5));
+    //std::this_thread::sleep_for(std::chrono::milliseconds(5));
 
-    chunkMutex.lock();
+    //chunkMutex.lock();
 
     for(Chunk *chunk : chunks) {
         ChunkMesh *mesh = chunk->mesh;
 
         if(mesh->shouldMesh) {
             mesh->mesh();
-            chunkMutex.unlock();
+            //chunkMutex.unlock();
             return;
         }
     }
 
-    chunkMutex.unlock();
+    //chunkMutex.unlock();
 }
 
 static bool chunkDepthCmp(Chunk *chunk1, Chunk *chunk2) {
@@ -202,7 +202,7 @@ void World::loadChunks() {
     i32 chunkPosX = (i32) floorf(state.player->pos.x / (f32) Chunk::WIDTH);
     i32 chunkPosZ = (i32) floorf(state.player->pos.z / (f32) Chunk::DEPTH);
 
-    chunkMutex.lock();
+    //chunkMutex.lock();
 
     for(i32 i = 0; i < chunks.size(); i++) {
         Chunk *chunk = chunks[i];
@@ -237,7 +237,7 @@ void World::loadChunks() {
             }
         }
     }
-    chunkMutex.unlock();
+    //chunkMutex.unlock();
 }
 
 void World::updateChunkStorage(Chunk *chunk) {
