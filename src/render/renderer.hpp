@@ -8,11 +8,17 @@
 
 struct Renderer {
     ShaderProgram program;
+    ShaderProgram guiProgram;
 
     Texture textureAtlas;
     Texture cubemap;
+    Texture crosshairTexture;
 
     Camera camera;
+
+    glm::mat4 orthoProj;
+    u32 crosshairVao;
+    u32 crosshairVbo;
 
     SkyboxRenderer skyboxRenderer;
 
@@ -25,6 +31,8 @@ struct Renderer {
     void renderWorld();
     
     void renderSkyBox();
+
+    void renderCrosshair();
     
     void renderChunkMesh(ChunkMesh *mesh);
 };

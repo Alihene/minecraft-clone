@@ -9,8 +9,22 @@ Renderer::Renderer() {
     glClearColor(0.1f, 0.85f, 1.0f, 1.0f);
 
     program = ShaderProgram("shaders/chunk.vert", "shaders/chunk.frag");
+    guiProgram = ShaderProgram("shaders/gui.vert", "shaders/gui.frag");
 
     textureAtlas = Texture(state.resourceDir + "textures/atlas.png", Texture::FORMAT_RGBA);
+
+    crosshairTexture = Texture(state.resourceDir + "textures/crosshair.png", Texture::FORMAT_RGBA);
+
+    glGenVertexArrays(1, &crosshairVao);
+    glBindVertexArray(crosshairVao);
+
+    glGenBuffers(1, &crosshairVbo);
+    glBindBuffer(GL_ARRAY_BUFFER, crosshairVbo);
+
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(f32), (void*) 0);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(f32), (void*) (2 * sizeof(f32)));
+    glEnableVertexAttribArray(1);
 
     skyboxRenderer = SkyboxRenderer(&camera);
 
@@ -24,6 +38,8 @@ void Renderer::prepareFrame() {
 }
 
 void Renderer::renderWorld() {
+    orthoProj = glm::ortho(0.0f, (f32) state.window->dimensions.x, (f32) state.window->dimensions.y, 0.0f, -1.0f, 1.0f);
+
     renderSkyBox();
 
     World *world = state.world;
@@ -49,10 +65,39 @@ void Renderer::renderWorld() {
     }
 
     world->chunkMutex.unlock();
+
+    renderCrosshair();
 }
 
 void Renderer::renderSkyBox() {
     skyboxRenderer.renderSkybox();
+}
+
+void Renderer::renderCrosshair() {
+    guiProgram.bind();
+    guiProgram.setMat4("uProj", orthoProj);
+    guiProgram.setInt("uTexture", 0);
+
+    u32 width = state.window->dimensions.x;
+    u32 height = state.window->dimensions.y;
+
+    f32 crosshairVertices[] = {
+        (f32) width / 2.0f - 10.0f, (f32) height / 2.0f - 10.0f, 0.0f, 0.0f,
+        (f32) width / 2.0f + 10.0f, (f32) height / 2.0f - 10.0f, 1.0f, 0.0f,
+        (f32) width / 2.0f + 10.0f, (f32) height / 2.0f + 10.0f, 1.0f, 1.0f,
+        (f32) width / 2.0f + 10.0f, (f32) height / 2.0f + 10.0f, 1.0f, 1.0f,
+        (f32) width / 2.0f - 10.0f, (f32) height / 2.0f + 10.0f, 0.0f, 1.0f,
+        (f32) width / 2.0f - 10.0f, (f32) height / 2.0f - 10.0f, 0.0f, 0.0f,
+    };
+
+    glBindBuffer(GL_ARRAY_BUFFER, crosshairVbo);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(crosshairVertices), crosshairVertices, GL_STATIC_DRAW);
+
+    glBindVertexArray(crosshairVao);
+
+    crosshairTexture.bind();
+
+    glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
 void Renderer::renderChunkMesh(ChunkMesh *mesh) {
