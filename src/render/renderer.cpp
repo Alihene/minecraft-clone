@@ -40,7 +40,7 @@ void Renderer::renderWorld() {
 
     program.setInt("uTexture", 0);
 
-    //world->chunkMutex.lock();
+    world->chunkMutex.lock();
 
     for(Chunk *chunk : world->chunks) {
         if(!chunk->mesh->isEmpty) {
@@ -48,7 +48,7 @@ void Renderer::renderWorld() {
         }
     }
 
-    //world->chunkMutex.unlock();
+    world->chunkMutex.unlock();
 }
 
 void Renderer::renderSkyBox() {
