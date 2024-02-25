@@ -43,7 +43,7 @@ void Renderer::renderWorld() {
     world->chunkMutex.lock();
 
     for(Chunk *chunk : world->chunks) {
-        if(!chunk->mesh->isEmpty) {
+        if(!chunk->mesh->isEmpty && !chunk->mesh->generating) {
             renderChunkMesh(chunk->mesh);
         }
     }

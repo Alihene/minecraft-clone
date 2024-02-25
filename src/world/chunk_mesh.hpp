@@ -30,6 +30,8 @@ struct ChunkMesh {
     bool shouldBufferOpaque = true;
     bool shouldBufferTransparent = true;
     bool shouldMesh = false;
+
+    volatile bool generating = false;
     
     bool isEmpty = true;
 

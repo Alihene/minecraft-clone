@@ -234,6 +234,7 @@ void ChunkMesh::addFace(f32 *vertices, bool transparent) {
 }
 
 void ChunkMesh::mesh() {
+    generating = true;
     reset();
 
     Chunk *left = state.world->getChunk(glm::ivec2(chunk->pos.x - 1, chunk->pos.y));
@@ -300,6 +301,7 @@ void ChunkMesh::mesh() {
     shouldMesh = false;
     shouldBufferOpaque = true;
     shouldBufferTransparent = true;
+    generating = false;
 }
 
 void ChunkMesh::reset() {

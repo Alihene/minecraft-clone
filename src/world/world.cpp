@@ -91,39 +91,38 @@ void World::setBlock(i32 x, i32 y, i32 z, Block *block) {
     if(posInChunk.x == 0) {
         Chunk *left = state.world->getChunk(glm::ivec2(chunk->pos.x - 1, chunk->pos.y));
         if(left && !left->get(Chunk::WIDTH - 1, posInChunk.y, posInChunk.z)->isAir()) {
-            left->mesh->mesh();
+            if(!left->mesh->generating) {
+                left->mesh->mesh();
+            }
         }
     } else if(posInChunk.x == Chunk::WIDTH - 1) {
         Chunk *right = state.world->getChunk(glm::ivec2(chunk->pos.x + 1, chunk->pos.y));
         if(right && !right->get(0, posInChunk.y, posInChunk.z)->isAir()) {
-            right->mesh->mesh();
+            if(!right->mesh->generating) {
+                right->mesh->mesh();
+            }
         }
     }
 
     if(posInChunk.z == 0) {
         Chunk *back = state.world->getChunk(glm::ivec2(chunk->pos.x, chunk->pos.y - 1));
         if(back && !back->get(posInChunk.x, posInChunk.y, Chunk::DEPTH - 1)->isAir()) {
-            back->mesh->mesh();
+            if(!back->mesh->generating) {
+                back->mesh->mesh();
+            }
         }
     } else if(posInChunk.z == Chunk::DEPTH - 1) {
         Chunk *front = state.world->getChunk(glm::ivec2(chunk->pos.x, chunk->pos.y + 1));
         if(front && !front->get(posInChunk.x, posInChunk.y, 0)->isAir()) {
-            front->mesh->mesh();
+            if(!front->mesh->generating) {
+                front->mesh->mesh();
+            }
         }
     }
 }
 
 void World::setBlockAndMesh(i32 x, i32 y, i32 z, Block *block) {
     setBlock(x, y, z, block);
-
-    i32 chunkPosX = (i32) floorf((f32) x / (f32) Chunk::WIDTH);
-    i32 chunkPosZ = (i32) floorf((f32) z / (f32) Chunk::DEPTH);
-    chunkMutex.lock();
-    Chunk *chunk = getChunk(glm::ivec2(chunkPosX, chunkPosZ));
-    if(chunk) {
-        chunk->mesh->mesh();
-    }
-    chunkMutex.unlock();
 }
 
 void World::setBlock(glm::ivec3 pos, Block *block) {
@@ -159,7 +158,7 @@ Block *World::getBlock(glm::ivec3 pos) {
 }
 
 void World::updateChunks() {
-    std::this_thread::sleep_for(std::chrono::milliseconds(5));
+    ChunkMesh *m = nullptr;
 
     chunkMutex.lock();
 
@@ -167,13 +166,16 @@ void World::updateChunks() {
         ChunkMesh *mesh = chunk->mesh;
 
         if(mesh->shouldMesh) {
-            mesh->mesh();
-            chunkMutex.unlock();
-            return;
+            m = mesh;
+            break;
         }
     }
 
     chunkMutex.unlock();
+
+    if(m) {
+        m->mesh();
+    }
 }
 
 static bool chunkDepthCmp(Chunk *chunk1, Chunk *chunk2) {

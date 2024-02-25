@@ -2,9 +2,10 @@
 
 #include "render/camera.hpp"
 #include "block/block.hpp"
+#include "util/aabb.hpp"
 
 struct Player {
-    glm::vec3 pos = glm::vec3(0.0f, 100.0f, 0.0f);
+    glm::vec3 pos = glm::vec3(0.0f, 50.0f, 0.0f);
     glm::vec3 lastPos = glm::vec3(0.0f);
 
     struct {
@@ -18,9 +19,13 @@ struct Player {
 
     bool hasMoved = false;
 
+    AABB aabb;
+
     Player();
 
     void update(f32 timestep);
+
+    void collide(glm::vec3 vel);
 
     void tryBreakBlock();
 

@@ -27,9 +27,9 @@ Block *Chunk::get(u32 x, u32 y, u32 z) {
     return Block::getPackedBlock(blocks[x][y][z]);
 }
 
-void Chunk::set(u32 x, u32 y, u32 z, Block *block, Block::Rotation rotation) {
+void Chunk::set(u32 x, u32 y, u32 z, Block *block, Block::Rotation rotation, bool shouldMesh) {
     blocks[x][y][z] = block->pack(rotation);
-    if(!mesh->shouldMesh) {
+    if(shouldMesh && !mesh->shouldMesh) {
         mesh->shouldMesh = true;
     }
 }
