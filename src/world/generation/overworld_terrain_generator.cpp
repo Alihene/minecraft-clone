@@ -101,7 +101,7 @@ void OverworldTerrainGenerator::makeHeightMap() {
     for (i32 x = 0; x < Chunk::WIDTH; x++) {
         for (i32 z = 0; z < Chunk::DEPTH; z++)
         {
-            f64 floatHeight = perlinNoise.noise2D_01(((x + (location.x * Chunk::WIDTH)) - offset) * 0.02, (((z) + (location.y * Chunk::DEPTH)) - offset) * 0.02);
+            f64 floatHeight = perlinNoise.octave2D_01(((x + (location.x * Chunk::WIDTH)) - offset) * 0.015, (((z) + (location.y * Chunk::DEPTH)) - offset) * 0.015, 3, 0.35f);
             floatHeight *= 50;
             i32 height = (i32) floatHeight;
             heightMap[x][z] = height;
