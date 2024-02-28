@@ -183,7 +183,6 @@ void Player::collide(glm::vec3 vel) {
     // //         pos.y = blockAabb.pos.y + 1;
     // //         state.renderer->camera.pos = pos + glm::vec3(0.0f, 1.5f, 0.0f);
     // //     }
-    // // }
 }
 
 void Player::tryBreakBlock() {

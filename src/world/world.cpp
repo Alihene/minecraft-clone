@@ -185,10 +185,12 @@ void World::updateChunks() {
             }
         }
 
-        chunkMutex.unlock();
-
         if(m && !m->generating) {
+            m->generating = true;
+            chunkMutex.unlock();
             m->mesh(adjacentChunks[0], adjacentChunks[1], adjacentChunks[2], adjacentChunks[3]);
+        } else {
+            chunkMutex.unlock();
         }
 
         for(Chunk *c : adjacentChunks) {
