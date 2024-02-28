@@ -17,7 +17,7 @@ Player::Player() {
 }
 
 void Player::update(f32 timestep) {
-    f32 speed = 8.0f * timestep;
+    f32 speed = 100.0f * timestep;
 
     if(state.window->keyPressed(GLFW_KEY_W)) {
         pos += glm::vec3(
@@ -55,7 +55,7 @@ void Player::update(f32 timestep) {
         i32 chunkPosZ = (i32) floorf((f32) pos.z / (f32) Chunk::DEPTH);
         Chunk *chunk = state.world->getChunk(glm::ivec2(chunkPosX, chunkPosZ));
 
-        if(chunk) {
+        if(chunk && !chunk->mesh->generating) {
             chunk->mesh->sort();
         }
     }
@@ -80,7 +80,7 @@ void Player::update(f32 timestep) {
             for(i32 z = chunkPosZ - 1; z <= chunkPosZ + 1; z++) {
                 Chunk *sideChunk = state.world->getChunk(glm::ivec2(x, z));
 
-                if(sideChunk) {
+                if(sideChunk && !sideChunk->mesh->generating) {
                     sideChunk->mesh->sort();
                 }
             }

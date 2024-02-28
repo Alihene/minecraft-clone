@@ -18,10 +18,12 @@ struct Chunk {
 
     ChunkMesh *mesh;
 
+    bool isSafeToDelete = true;
+
     Chunk();
 
     Block *get(u32 x, u32 y, u32 z);
-    void set(u32 x, u32 y, u32 z, Block *block, Block::Rotation rotation = Block::UP, bool shouldMesh = true);
+    void set(u32 x, u32 y, u32 z, Block *block, Block::Rotation rotation = Block::UP);
 
     void destroy();
 };

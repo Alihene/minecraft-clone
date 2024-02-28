@@ -48,7 +48,7 @@ void World::addChunk(glm::ivec2 pos) {
     };
 
     for(Chunk *c : adjacentChunks) {
-        if(c) {
+        if(c && !c->mesh->generating) {
             c->mesh->shouldMesh = true;
         }
     }
@@ -92,14 +92,14 @@ void World::setBlock(i32 x, i32 y, i32 z, Block *block) {
         Chunk *left = state.world->getChunk(glm::ivec2(chunk->pos.x - 1, chunk->pos.y));
         if(left && !left->get(Chunk::WIDTH - 1, posInChunk.y, posInChunk.z)->isAir()) {
             if(!left->mesh->generating) {
-                left->mesh->mesh();
+                left->mesh->shouldMesh = true;
             }
         }
     } else if(posInChunk.x == Chunk::WIDTH - 1) {
         Chunk *right = state.world->getChunk(glm::ivec2(chunk->pos.x + 1, chunk->pos.y));
         if(right && !right->get(0, posInChunk.y, posInChunk.z)->isAir()) {
             if(!right->mesh->generating) {
-                right->mesh->mesh();
+                right->mesh->shouldMesh = true;
             }
         }
     }
@@ -108,14 +108,14 @@ void World::setBlock(i32 x, i32 y, i32 z, Block *block) {
         Chunk *back = state.world->getChunk(glm::ivec2(chunk->pos.x, chunk->pos.y - 1));
         if(back && !back->get(posInChunk.x, posInChunk.y, Chunk::DEPTH - 1)->isAir()) {
             if(!back->mesh->generating) {
-                back->mesh->mesh();
+                back->mesh->shouldMesh = true;
             }
         }
     } else if(posInChunk.z == Chunk::DEPTH - 1) {
         Chunk *front = state.world->getChunk(glm::ivec2(chunk->pos.x, chunk->pos.y + 1));
         if(front && !front->get(posInChunk.x, posInChunk.y, 0)->isAir()) {
             if(!front->mesh->generating) {
-                front->mesh->mesh();
+                front->mesh->shouldMesh = true;
             }
         }
     }
@@ -165,16 +165,39 @@ void World::updateChunks() {
     for(Chunk *chunk : chunks) {
         ChunkMesh *mesh = chunk->mesh;
 
-        if(mesh->shouldMesh) {
+        if(mesh->shouldMesh && !mesh->generating) {
             m = mesh;
             break;
         }
     }
 
-    chunkMutex.unlock();
+    if(m && !m->generating) {
+        Chunk *adjacentChunks[] = {
+            state.world->getChunk(glm::ivec2(m->chunk->pos.x - 1, m->chunk->pos.y)),
+            state.world->getChunk(glm::ivec2(m->chunk->pos.x + 1, m->chunk->pos.y)),
+            state.world->getChunk(glm::ivec2(m->chunk->pos.x, m->chunk->pos.y + 1)),
+            state.world->getChunk(glm::ivec2(m->chunk->pos.x, m->chunk->pos.y - 1))
+        };
 
-    if(m) {
-        m->mesh();
+        for(Chunk *c : adjacentChunks) {
+            if(c) {
+                c->isSafeToDelete = false;
+            }
+        }
+
+        chunkMutex.unlock();
+
+        if(m && !m->generating) {
+            m->mesh(adjacentChunks[0], adjacentChunks[1], adjacentChunks[2], adjacentChunks[3]);
+        }
+
+        for(Chunk *c : adjacentChunks) {
+            if(c) {
+                c->isSafeToDelete = true;
+            }
+        }
+    } else {
+        chunkMutex.unlock();
     }
 }
 
@@ -217,9 +240,11 @@ void World::loadChunks() {
     }
 
     for(i32 i = chunksToRemove.size() - 1; i >= 0; i--) {
-        chunks[chunksToRemove[i]]->destroy();
-        delete chunks[chunksToRemove[i]];
-        chunks.erase(chunks.begin() + chunksToRemove[i]);
+        if(chunks[chunksToRemove[i]]->isSafeToDelete) {
+            chunks[chunksToRemove[i]]->destroy();
+            delete chunks[chunksToRemove[i]];
+            chunks.erase(chunks.begin() + chunksToRemove[i]);
+        }
     }
 
     for(i32 x = -renderDistance; x <= renderDistance; x++) {
@@ -234,8 +259,6 @@ void World::loadChunks() {
 
             if(!chunkExists) {
                 addChunk({x + chunkPosX, z + chunkPosZ});
-                chunkMutex.unlock();
-                return;
             }
         }
     }

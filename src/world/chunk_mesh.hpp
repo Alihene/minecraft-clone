@@ -13,6 +13,15 @@ struct ChunkMesh {
         u32 indexBase;
     };
 
+    enum MeshFace {
+        MESH_FACE_POS_X = 0,
+        MESH_FACE_NEG_X = 1,
+        MESH_FACE_POS_Y = 2,
+        MESH_FACE_NEG_Y = 3,
+        MESH_FACE_POS_Z = 4,
+        MESH_FACE_NEG_Z = 5
+    };
+
     static constexpr usize MESH_SIZE = 6 * 6 * 6 * 16 * 128 * 16 * sizeof(f32);
 
     static constexpr usize ADVANCE = 6 * 6;
@@ -44,16 +53,16 @@ struct ChunkMesh {
 
     void sort();
 
-    void positiveXFace(u32 x, u32 y, u32 z, Block *block);
-    void negativeXFace(u32 x, u32 y, u32 z, Block *block);
+    void positiveXFace(u32 x, u32 y, u32 z, Block *block, bool topBlock);
+    void negativeXFace(u32 x, u32 y, u32 z, Block *block, bool topBlock);
     void positiveYFace(u32 x, u32 y, u32 z, Block *block, bool topBlock);
     void negativeYFace(u32 x, u32 y, u32 z, Block *block);
-    void positiveZFace(u32 x, u32 y, u32 z, Block *block);
-    void negativeZFace(u32 x, u32 y, u32 z, Block *block);
+    void positiveZFace(u32 x, u32 y, u32 z, Block *block, bool topBlock);
+    void negativeZFace(u32 x, u32 y, u32 z, Block *block, bool topBlock);
 
     void addFace(f32 *vertices, bool transparent);
 
-    void mesh();
+    void mesh(Chunk *left, Chunk *right, Chunk *front, Chunk *back);
 
     void reset();
 

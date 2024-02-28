@@ -67,13 +67,19 @@ void ChunkMesh::sort() {
     shouldBufferTransparent = true;
 }
 
-void ChunkMesh::positiveXFace(u32 x, u32 y, u32 z, Block *block) {
+void ChunkMesh::positiveXFace(u32 x, u32 y, u32 z, Block *block, bool topBlock) {
+    // Fluids are 1 pixel shorter than normal blocks
+    f32 yOffset = 1.0f;
+    if(!block->solid && topBlock) {
+        yOffset = 15.0f / 16.0f;
+    }
+
     f32 positiveXFace[] {
-        x + 1 , y, z + 1, block->texCoords.posX.x, block->texCoords.posX.y, 0.8f,
+        x + 1, y, z + 1, block->texCoords.posX.x, block->texCoords.posX.y, 0.8f,
         x + 1, y, z, block->texCoords.posX.z, block->texCoords.posX.y, 0.8f,
-        x + 1, y + 1, z, block->texCoords.posX.z, block->texCoords.posX.w, 0.8f,
-        x + 1, y + 1, z, block->texCoords.posX.z, block->texCoords.posX.w, 0.8f,
-        x + 1, y + 1, z + 1, block->texCoords.posX.x, block->texCoords.posX.w, 0.8f,
+        x + 1, y + yOffset, z, block->texCoords.posX.z, block->texCoords.posX.w, 0.8f,
+        x + 1, y + yOffset, z, block->texCoords.posX.z, block->texCoords.posX.w, 0.8f,
+        x + 1, y + yOffset, z + 1, block->texCoords.posX.x, block->texCoords.posX.w, 0.8f,
         x + 1, y, z + 1, block->texCoords.posX.x, block->texCoords.posX.y, 0.8f,
     };
 
@@ -92,13 +98,19 @@ void ChunkMesh::positiveXFace(u32 x, u32 y, u32 z, Block *block) {
     }
 }
 
-void ChunkMesh::negativeXFace(u32 x, u32 y, u32 z, Block *block) {
+void ChunkMesh::negativeXFace(u32 x, u32 y, u32 z, Block *block, bool topBlock) {
+    // Fluids are 1 pixel shorter than normal blocks
+    f32 yOffset = 1.0f;
+    if(!block->solid && topBlock) {
+        yOffset = 15.0f / 16.0f;
+    }
+
     f32 negativeXFace[] {
         x, y, z + 1, block->texCoords.negX.x, block->texCoords.negX.y, 0.8f,
         x, y, z, block->texCoords.negX.z, block->texCoords.negX.y, 0.8f,
-        x, y + 1, z, block->texCoords.negX.z, block->texCoords.negX.w, 0.8f,
-        x, y + 1, z, block->texCoords.negX.z, block->texCoords.negX.w, 0.8f,
-        x, y + 1, z + 1, block->texCoords.negX.x, block->texCoords.negX.w, 0.8f,
+        x, y + yOffset, z, block->texCoords.negX.z, block->texCoords.negX.w, 0.8f,
+        x, y + yOffset, z, block->texCoords.negX.z, block->texCoords.negX.w, 0.8f,
+        x, y + yOffset, z + 1, block->texCoords.negX.x, block->texCoords.negX.w, 0.8f,
         x, y, z + 1, block->texCoords.negX.x, block->texCoords.negX.y, 0.8f,
     };
 
@@ -173,13 +185,19 @@ void ChunkMesh::negativeYFace(u32 x, u32 y, u32 z, Block *block) {
     }
 }
 
-void ChunkMesh::positiveZFace(u32 x, u32 y, u32 z, Block *block) {
+void ChunkMesh::positiveZFace(u32 x, u32 y, u32 z, Block *block, bool topBlock) {
+    // Fluids are 1 pixel shorter than normal blocks
+    f32 yOffset = 1.0f;
+    if(!block->solid && topBlock) {
+        yOffset = 15.0f / 16.0f;
+    }
+
     f32 positiveZFace[] {
         x, y, z + 1, block->texCoords.posZ.x, block->texCoords.posZ.y, 0.85f,
         x + 1, y, z + 1, block->texCoords.posZ.z, block->texCoords.posZ.y, 0.85f,
-        x + 1, y + 1, z + 1, block->texCoords.posZ.z, block->texCoords.posZ.w, 0.85f,
-        x + 1, y + 1, z + 1, block->texCoords.posZ.z, block->texCoords.posZ.w, 0.85f,
-        x, y + 1, z + 1, block->texCoords.posZ.x, block->texCoords.posZ.w, 0.85f,
+        x + 1, y + yOffset, z + 1, block->texCoords.posZ.z, block->texCoords.posZ.w, 0.85f,
+        x + 1, y + yOffset, z + 1, block->texCoords.posZ.z, block->texCoords.posZ.w, 0.85f,
+        x, y + yOffset, z + 1, block->texCoords.posZ.x, block->texCoords.posZ.w, 0.85f,
         x, y, z + 1, block->texCoords.posZ.x, block->texCoords.posZ.y, 0.85f,
     };
 
@@ -198,13 +216,19 @@ void ChunkMesh::positiveZFace(u32 x, u32 y, u32 z, Block *block) {
     }
 }
 
-void ChunkMesh::negativeZFace(u32 x, u32 y, u32 z, Block *block) {
+void ChunkMesh::negativeZFace(u32 x, u32 y, u32 z, Block *block, bool topBlock) {
+    // Fluids are 1 pixel shorter than normal blocks
+    f32 yOffset = 1.0f;
+    if(!block->solid && topBlock) {
+        yOffset = 15.0f / 16.0f;
+    }
+
     f32 negativeZFace[] {
         x, y, z, block->texCoords.negZ.x, block->texCoords.negZ.y, 0.85f,
         x + 1, y, z, block->texCoords.negZ.z, block->texCoords.negZ.y, 0.85f,
-        x + 1, y + 1, z, block->texCoords.negZ.z, block->texCoords.negZ.w, 0.85f,
-        x + 1, y + 1, z, block->texCoords.negZ.z, block->texCoords.negZ.w, 0.85f,
-        x, y + 1, z, block->texCoords.negZ.x, block->texCoords.negZ.w, 0.85f,
+        x + 1, y + yOffset, z, block->texCoords.negZ.z, block->texCoords.negZ.w, 0.85f,
+        x + 1, y + yOffset, z, block->texCoords.negZ.z, block->texCoords.negZ.w, 0.85f,
+        x, y + yOffset, z, block->texCoords.negZ.x, block->texCoords.negZ.w, 0.85f,
         x, y, z, block->texCoords.negZ.x, block->texCoords.negZ.y, 0.85f,
     };
 
@@ -233,14 +257,15 @@ void ChunkMesh::addFace(f32 *vertices, bool transparent) {
     }
 }
 
-void ChunkMesh::mesh() {
+void ChunkMesh::mesh(Chunk *left, Chunk *right, Chunk *front, Chunk *back) {
     generating = true;
+    chunk->isSafeToDelete = false;
     reset();
 
-    Chunk *left = state.world->getChunk(glm::ivec2(chunk->pos.x - 1, chunk->pos.y));
-    Chunk *right = state.world->getChunk(glm::ivec2(chunk->pos.x + 1, chunk->pos.y));
-    Chunk *front = state.world->getChunk(glm::ivec2(chunk->pos.x, chunk->pos.y + 1));
-    Chunk *back = state.world->getChunk(glm::ivec2(chunk->pos.x, chunk->pos.y - 1));
+    // Chunk *left = state.world->getChunk(glm::ivec2(chunk->pos.x - 1, chunk->pos.y));
+    // Chunk *right = state.world->getChunk(glm::ivec2(chunk->pos.x + 1, chunk->pos.y));
+    // Chunk *front = state.world->getChunk(glm::ivec2(chunk->pos.x, chunk->pos.y + 1));
+    // Chunk *back = state.world->getChunk(glm::ivec2(chunk->pos.x, chunk->pos.y - 1));
 
     for(u32 x = 0; x < Chunk::WIDTH; x++) {
         for(u32 y = 0; y < Chunk::HEIGHT; y++) {
@@ -248,19 +273,21 @@ void ChunkMesh::mesh() {
                 Block &block = *chunk->get(x, y, z);
 
                 if(!block.isAir()) {
+                    bool isTopBlock = y != Chunk::HEIGHT && chunk->get(x, y + 1, z)->type != block.type;
+
                     if(x > 0 && (chunk->get(x - 1, y, z)->isAir() || (!block.transparent && chunk->get(x - 1, y, z)->transparent))) {
-                        negativeXFace(x, y, z, &block);
+                        negativeXFace(x, y, z, &block, isTopBlock);
                     } else if(x == 0) {
                         if(left != nullptr && (left->get(Chunk::WIDTH - 1, y, z)->isAir() || (!block.transparent && left->get(Chunk::WIDTH - 1, y, z)->transparent))) {
-                            negativeXFace(x, y, z, &block);
+                            negativeXFace(x, y, z, &block, isTopBlock);
                         }
                     }
 
                     if(x < Chunk::WIDTH - 1 && (chunk->get(x + 1, y, z)->isAir() || (!block.transparent && chunk->get(x + 1, y, z)->transparent))) {
-                        positiveXFace(x, y, z, &block);
+                        positiveXFace(x, y, z, &block, isTopBlock);
                     } else if(x == Chunk::WIDTH - 1) {
                         if(right != nullptr && (right->get(0, y, z)->isAir() || (!block.transparent && right->get(0, y, z)->transparent))) {
-                            positiveXFace(x, y, z, &block);
+                            positiveXFace(x, y, z, &block, isTopBlock);
                         }
                     }
 
@@ -275,18 +302,18 @@ void ChunkMesh::mesh() {
                     }
 
                     if(z > 0 && (chunk->get(x, y, z - 1)->isAir() || (!block.transparent && chunk->get(x, y, z - 1)->transparent))) {
-                        negativeZFace(x, y, z, &block);
+                        negativeZFace(x, y, z, &block, isTopBlock);
                     } else if(z == 0) {
                         if(back != nullptr && (back->get(x, y, Chunk::DEPTH - 1)->isAir() || (!block.transparent && back->get(x, y, Chunk::DEPTH - 1)->transparent))) {
-                            negativeZFace(x, y, z, &block);
+                            negativeZFace(x, y, z, &block, isTopBlock);
                         }
                     }
 
                     if(z < Chunk::DEPTH - 1 && (chunk->get(x, y, z + 1)->isAir() || (!block.transparent && chunk->get(x, y, z + 1)->transparent))) {
-                        positiveZFace(x, y, z, &block);
+                        positiveZFace(x, y, z, &block, isTopBlock);
                     } else if(z == Chunk::DEPTH - 1) {
                         if(front != nullptr && (front->get(x, y, 0)->isAir() || (!block.transparent && front->get(x, y, 0)->transparent))) {
-                            positiveZFace(x, y, z, &block);
+                            positiveZFace(x, y, z, &block, isTopBlock);
                         }
                     }
                 }
@@ -302,6 +329,7 @@ void ChunkMesh::mesh() {
     shouldBufferOpaque = true;
     shouldBufferTransparent = true;
     generating = false;
+    chunk->isSafeToDelete = true;
 }
 
 void ChunkMesh::reset() {

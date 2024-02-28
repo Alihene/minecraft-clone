@@ -24,7 +24,7 @@ void Camera::update() {
     state.window->mouse.lastX = x;
     state.window->mouse.lastY = y;
 
-    f32 sens = 0.1f;
+    f32 sens = 0.075f;
     xOffset *= sens;
     yOffset *= sens;
 

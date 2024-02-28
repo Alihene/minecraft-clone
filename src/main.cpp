@@ -7,6 +7,12 @@
 
 State state;
 
+void meshChunks() {
+    while(!state.window->shouldClose()) {
+        state.world->updateChunks();
+    }
+}
+
 int main(i32 argc, char **argv) {
     if(argc < 2) {
         std::cerr << "Invalid arguments supplied" << std::endl;
@@ -41,7 +47,7 @@ int main(i32 argc, char **argv) {
         }
     };
 
-    std::thread chunkMeshThread(chunkMeshFunc);
+    std::thread chunkMeshThread(meshChunks);
 
     f32 lastTime = 0.0f;
     f32 timestep;
@@ -57,7 +63,6 @@ int main(i32 argc, char **argv) {
         renderer.camera.update();
 
         world.loadChunks();
-        //world.updateChunks();
 
         renderer.prepareFrame();
 
