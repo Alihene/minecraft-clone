@@ -122,7 +122,47 @@ void World::setBlock(i32 x, i32 y, i32 z, Block *block) {
 }
 
 void World::setBlockAndMesh(i32 x, i32 y, i32 z, Block *block) {
+    std::unique_lock<std::mutex> lock{chunkMutex, std::defer_lock};
+
     setBlock(x, y, z, block);
+
+    i32 chunkPosX = (i32) floorf((f32) x / (f32) Chunk::WIDTH);
+    i32 chunkPosZ = (i32) floorf((f32) z / (f32) Chunk::DEPTH);
+
+    if(!lock.owns_lock()) {
+        lock.lock();
+    }
+    
+    Chunk *chunk = getChunk(glm::ivec2(chunkPosX, chunkPosZ));
+
+    if(chunk && !chunk->mesh->generating) {
+        // Called before unlocking mutex
+        chunk->mesh->generating = true;
+
+        Chunk *adjacentChunks[] = {
+            getChunk(glm::ivec2(chunk->pos.x - 1, chunk->pos.y)),
+            getChunk(glm::ivec2(chunk->pos.x + 1, chunk->pos.y)),
+            getChunk(glm::ivec2(chunk->pos.x, chunk->pos.y + 1)),
+            getChunk(glm::ivec2(chunk->pos.x, chunk->pos.y - 1))
+        };
+
+        for(Chunk *c : adjacentChunks) {
+            if(c) {
+                c->isSafeToDelete = false;
+            }
+        }
+
+        lock.unlock();
+        chunk->mesh->mesh(adjacentChunks[0], adjacentChunks[1], adjacentChunks[2], adjacentChunks[3]);
+
+        for(Chunk *c : adjacentChunks) {
+            if(c) {
+                c->isSafeToDelete = true;
+            }
+        }
+    } else {
+        lock.unlock();
+    }
 }
 
 void World::setBlock(glm::ivec3 pos, Block *block) {
