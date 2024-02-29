@@ -68,13 +68,9 @@ void Player::update(f32 timestep) {
 
     if(!hasMoved) {
         hasMoved = true;
-        state.world->chunkMutex.lock();
         state.world->sortChunks();
-        state.world->chunkMutex.unlock();
     } else if(chunkPosX != lastChunkPosX || chunkPosZ != lastChunkPosZ) {
-        state.world->chunkMutex.lock();
         state.world->sortChunks();
-        state.world->chunkMutex.unlock();
 
         for(i32 x = chunkPosX - 1; x <= chunkPosX + 1; x++) {
             for(i32 z = chunkPosZ - 1; z <= chunkPosZ + 1; z++) {

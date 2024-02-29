@@ -16,7 +16,7 @@ struct BlockSetData {
 
 struct World {
     std::vector<Chunk*> chunks;
-    std::mutex chunkMutex;
+    std::recursive_mutex chunkMutex;
     std::vector<BlockSetData> pendingBlockChanges;
 
     ChunkStorage storage;

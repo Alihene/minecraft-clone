@@ -61,16 +61,12 @@ void World::setBlock(i32 x, i32 y, i32 z, Block *block) {
         return;
     }
 
+    chunkMutex.lock();
+
     i32 chunkPosX = (i32) floorf((f32) x / (f32) Chunk::WIDTH);
     i32 chunkPosZ = (i32) floorf((f32) z / (f32) Chunk::DEPTH);
 
-    Chunk *chunk = nullptr;
-    for(Chunk *c : chunks) {
-        if(c->pos.x == chunkPosX && c->pos.y == chunkPosZ) {
-            chunk = c;
-            break;
-        }
-    }
+    Chunk *chunk = getChunk(glm::ivec2(chunkPosX, chunkPosZ));
 
     glm::ivec3 posInChunk = glm::ivec3(x % Chunk::WIDTH, y, z % Chunk::DEPTH);
 
@@ -82,6 +78,7 @@ void World::setBlock(i32 x, i32 y, i32 z, Block *block) {
             .block = block
         });
 
+        chunkMutex.unlock();
         return;
     }
 
@@ -119,19 +116,17 @@ void World::setBlock(i32 x, i32 y, i32 z, Block *block) {
             }
         }
     }
+
+    chunkMutex.unlock();
 }
 
 void World::setBlockAndMesh(i32 x, i32 y, i32 z, Block *block) {
-    std::unique_lock<std::mutex> lock{chunkMutex, std::defer_lock};
-
     setBlock(x, y, z, block);
 
     i32 chunkPosX = (i32) floorf((f32) x / (f32) Chunk::WIDTH);
     i32 chunkPosZ = (i32) floorf((f32) z / (f32) Chunk::DEPTH);
 
-    if(!lock.owns_lock()) {
-        lock.lock();
-    }
+    chunkMutex.lock();
     
     Chunk *chunk = getChunk(glm::ivec2(chunkPosX, chunkPosZ));
 
@@ -152,7 +147,7 @@ void World::setBlockAndMesh(i32 x, i32 y, i32 z, Block *block) {
             }
         }
 
-        lock.unlock();
+        chunkMutex.unlock();
         chunk->mesh->mesh(adjacentChunks[0], adjacentChunks[1], adjacentChunks[2], adjacentChunks[3]);
 
         for(Chunk *c : adjacentChunks) {
@@ -161,7 +156,7 @@ void World::setBlockAndMesh(i32 x, i32 y, i32 z, Block *block) {
             }
         }
     } else {
-        lock.unlock();
+        chunkMutex.unlock();
     }
 }
 
@@ -174,22 +169,20 @@ void World::setBlockAndMesh(glm::ivec3 pos, Block *block) {
 }
 
 Block *World::getBlock(i32 x, i32 y, i32 z) {
+    chunkMutex.lock();
+
     i32 chunkPosX = (i32) floorf((f32) x / (f32) Chunk::WIDTH);
     i32 chunkPosZ = (i32) floorf((f32) z / (f32) Chunk::DEPTH);
 
-    Chunk *chunk = nullptr;
-    for(Chunk *c : chunks) {
-        if(c->pos.x == chunkPosX && c->pos.y == chunkPosZ) {
-            chunk = c;
-            break;
-        }
-    }
+    Chunk *chunk = getChunk(glm::ivec2(chunkPosX, chunkPosZ));
 
     if(!chunk) {
         // Chunk is not loaded
+        chunkMutex.unlock();
         return nullptr;
     }
 
+    chunkMutex.unlock();
     return chunk->get(x % Chunk::WIDTH, y, z % Chunk::DEPTH);
 }
 
@@ -258,7 +251,9 @@ static bool chunkDepthCmp(Chunk *chunk1, Chunk *chunk2) {
 }
 
 void World::sortChunks() {
+    chunkMutex.lock();
     std::sort(chunks.begin(), chunks.end(), chunkDepthCmp);
+    chunkMutex.unlock();
 }
 
 void World::loadChunks() {
@@ -310,20 +305,25 @@ void World::loadChunks() {
 void World::updateChunkStorage(Chunk *chunk) {
     ChunkData *data = storage.getChunkData(chunk->pos.x, chunk->pos.y);
 
+    chunkMutex.lock();
     if(!data) {
         storage.setChunk(chunk);
     } else {
         data->writeData(chunk);
     }
+    chunkMutex.unlock();
 }
 
 Chunk *World::getChunk(glm::ivec2 pos) {
+    chunkMutex.lock();
     for(Chunk *chunk : chunks) {
         if(chunk->pos == pos) {
+            chunkMutex.unlock();
             return chunk;
         }
     }
 
+    chunkMutex.unlock();
     return nullptr;
 }
 
@@ -332,8 +332,10 @@ glm::ivec3 World::pointToBlockPos(glm::vec3 point) {
 }
 
 void World::destroy() {
+    chunkMutex.lock();
     for(Chunk *chunk : chunks) {
         delete chunk;
     }
+    chunkMutex.unlock();
     storage.destroy();
 }
